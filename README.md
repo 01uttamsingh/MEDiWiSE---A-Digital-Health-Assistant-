@@ -155,13 +155,7 @@ The DL model detects 7 conditions:
 
 ---
 
-## Team
 
-| Role | Name | Institution |
-|---|---|---|
-| Front-End | Ashish Mishra | Dev Bhoomi Uttarakhand University, Dehradun |
-| Back-End | Bimochan Jena | Dev Bhoomi Uttarakhand University, Dehradun |
-| ML Models | Uttam Singh | Dev Bhoomi Uttarakhand University, Dehradun |
 
 ---
 

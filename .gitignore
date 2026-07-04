@@ -1,0 +1,31 @@
+# Environment variables - NEVER commit this
+.env
+
+# Virtual environment
+myenv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Model files (large binaries - optional, add if too large)
+# models/*.pth
+# models/*.pkl
+
+# Dataset (optional)
+# datasets/
+
+# Entire Skin_Model folder (training scripts + image dataset - model weights are in models/)
+Skin_Model/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

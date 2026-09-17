@@ -58,4 +58,5 @@ def draw_dfd():
     print("Diagram saved as mediwise_dfd.png")
     plt.show()
 
-draw_dfd()
+if __name__ == "__main__":
+    draw_dfd()

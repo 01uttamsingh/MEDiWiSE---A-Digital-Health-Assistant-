@@ -1,281 +1,200 @@
 {% extends "layout.html" %}
 
-{% block title %}Home Remedies - MEDiWiSE{% endblock %}
+{% block title %}Natural Home Remedies (AI Assistant) — MEDiWiSE{% endblock %}
 
 {% block styles %}
-<!-- Internal Styles for Remedies Section -->
 <style>
-  .remedies-wrapper {
-    background-color: #0F0F0F;
-    padding: 100px var(--dl-layout-space-oneandhalfunits);
-    color: white;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .remedies-container {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .remedies-header {
-    margin-bottom: 40px;
-  }
-
-  .remedies-header h2 {
-    font-size: 40px;
-    font-weight: 600;
-    margin-bottom: 15px;
-  }
-
-  .remedies-header p {
-    font-size: 16px;
-    color: #a0a0a0;
-    line-height: 1.6;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .remedy-chat-box {
-    background-color: #1A1A1A;
-    border: 1px solid #51515A;
-    border-radius: 15px;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  }
-
-  .remedy-messages {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .remedy-messages::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  .remedy-messages::-webkit-scrollbar-track {
-    background: #1A1A1A;
-  }
-
-  .remedy-messages::-webkit-scrollbar-thumb {
-    background-color: #51515A;
-    border-radius: 10px;
-  }
-
-  .message-wrapper {
-    display: flex;
-    align-items: flex-end;
-    gap: 10px;
-    max-width: 85%;
-  }
-
-  .bot-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    overflow: hidden;
-    flex-shrink: 0;
-    background-color: #292929;
-  }
-
-  .bot-avatar img {
-    width: 100%;
-    height: 100%;
-  }
-
-  .message {
-    padding: 12px 18px;
-    border-radius: 20px;
-    line-height: 1.5;
-    text-align: left;
-  }
-
-  .bot-message {
-    background-color: #292929;
-    border-bottom-left-radius: 5px;
-  }
-
-  .bot-message.typing-indicator {
-    font-style: italic;
-    color: #a0a0a0;
-  }
-
-  .user-query-wrapper {
-    align-self: flex-end;
-  }
-
-  .user-query {
-    background-color: #80FF44;
-    color: #0F0F0F;
-    font-weight: 500;
-    border-bottom-right-radius: 5px;
-  }
-
-  .bot-message ul {
-    list-style-type: none;
-    padding-left: 5px;
-    margin-top: 10px;
-  }
-
-  .bot-message li {
-    margin-bottom: 8px;
-    padding-left: 5px;
-  }
-
-  .loading-dots span {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #80FF44;
-    animation: bounce 1.4s infinite ease-in-out both;
-  }
-
-  .loading-dots span:nth-child(1) {
-    animation-delay: -0.32s;
-  }
-
-  .loading-dots span:nth-child(2) {
-    animation-delay: -0.16s;
-  }
-
-  @keyframes bounce {
-    0%, 80%, 100% { transform: scale(0); }
-    40% { transform: scale(1.0); }
-  }
-
-  .remedy-input-area {
-    display: flex;
-    padding: 15px;
-    border-top: 1px solid #51515A;
-    background-color: #0F0F0F;
-  }
-
-  .remedy-input-area.disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  .remedy-input-area input {
-    flex-grow: 1;
-    background-color: #292929;
-    border: 1px solid transparent;
-    border-radius: 25px;
-    padding: 12px 20px;
-    color: white;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-
-  .remedy-input-area input:focus {
-    border-color: #80FF44;
-  }
-
-  .remedy-input-area button {
-    background-color: #80FF44;
-    border: none;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    margin-left: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-
-  .remedy-input-area button:hover {
-    background-color: #6ee02a;
-    transform: scale(1.1);
-  }
-
-  .remedy-input-area button svg {
-    stroke: #0F0F0F;
-    width: 20px;
-    height: 20px;
-  }
-
-  .powered-by-section {
-    padding: 60px var(--dl-layout-space-oneandhalfunits);
-    text-align: center;
-    border-top: 1px solid #51515A;
-    margin-top: 40px;
-  }
-  .powered-by-title {
-    font-size: 18px;
-    font-weight: 500;
-    color: #a0a0a0;
-    margin-bottom: 30px;
-    font-family: 'Poppins', sans-serif;
-  }
-  .logos-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-  }
-  .logo-img {
-    height: 40px;
-    opacity: 0.8;
-  }
+    /* Styling for dynamic remedy chat elements */
+    .message-wrapper {
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+        max-width: 85%;
+        animation: fadeIn 0.2s ease-out;
+    }
+    .user-query-wrapper {
+        align-self: flex-end;
+        flex-direction: row-reverse;
+    }
+    .bot-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        overflow: hidden;
+        flex-shrink: 0;
+        background: #0B1528;
+        border: 2px solid rgba(6, 182, 212, 0.4);
+    }
+    .bot-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .message {
+        padding: 14px 18px;
+        border-radius: 18px;
+        font-size: 0.925rem;
+        line-height: 1.6;
+    }
+    .bot-message {
+        background-color: #142544;
+        color: #F1F5F9;
+        border-bottom-left-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .user-query {
+        background: linear-gradient(135deg, #0284C7, #0D9488);
+        color: #FFFFFF;
+        font-weight: 500;
+        border-bottom-right-radius: 4px;
+        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    }
+    .bot-message ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin: 6px 0 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .bot-message li {
+        position: relative;
+        padding-left: 18px;
+    }
+    .bot-message li::before {
+        content: "✦";
+        position: absolute;
+        left: 0;
+        color: #22D3EE;
+        font-size: 0.8rem;
+    }
+    .loading-dots span {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: #22D3EE;
+        margin: 0 2px;
+        animation: bounce 1.4s infinite ease-in-out both;
+    }
+    .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes bounce {
+        0%, 80%, 100% { transform: scale(0); }
+        40% { transform: scale(1); }
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<!-- Home Remedies Section -->
-<section id="remedies-section" class="remedies-wrapper">
-  <div class="remedies-container">
-    <header class="remedies-header">
-      <h2>Remedies You Can Try at Home</h2>
-      <p>Enter the name of a common disease below to get a list of potential home remedies. This is for emergency
-        and short-term relief. Please Consult a doctor, Thank You!</p>
-    </header>
-    <div class="remedy-chat-box">
-      <div id="remedy-messages" class="remedy-messages">
-        <div class="message-wrapper">
-          <div class="bot-avatar"><img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Avatar" /></div>
-          <div class="message bot-message">
-            <p>Hello! I am MedTed. Please type the name of a common ailment (e.g., "Cold", "Headache", "Fever")
-              below, and I'll suggest some home remedies.</p>
-          </div>
-        </div>
-      </div>
-      <form id="remedy-form" class="remedy-input-area">
-        <input type="text" id="disease-input" placeholder="Type a disease name..." autocomplete="off" required>
-        <button type="submit" aria-label="Send">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-          </svg>
-        </button>
-      </form>
-    </div>
-  </div>
-</section>
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-<!-- "Powered By" Section with Local Images -->
-<section class="powered-by-section">
-    <h3 class="powered-by-title">Powered By</h3>
-    <div class="logos-container">
-        <img src="{{ url_for('static', filename='img/google.png') }}" alt="Google Logo" class="logo-img">
-        <img src="{{ url_for('static', filename='img/aistudio.png') }}" alt="AI Studio Logo" class="logo-img">
-        <img src="{{ url_for('static', filename='img/gemini.png') }}" alt="Gemini Logo" class="logo-img">
+    <!-- Hero Header -->
+    <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-700/40 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-4">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            Gemini AI Wellness Companion
+        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+            Gentle & Natural <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300">Home Remedies</span>
+        </h1>
+        <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+            Specify a common ailment or symptom to instantly receive trusted, simple non-clinical home measures to alleviate mild discomfort.
+        </p>
     </div>
-</section>
+
+    <!-- Quick Pill Selector -->
+    <div class="mb-6 flex flex-wrap items-center justify-center gap-2">
+        <span class="text-xs text-slate-400 mr-1">Popular inquiries:</span>
+        <button type="button" onclick="setDiseaseQuery('Common Cold')" class="px-3 py-1.5 rounded-full text-xs font-medium bg-navy-900 border border-white/10 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-300 transition-colors">✦ Common Cold</button>
+        <button type="button" onclick="setDiseaseQuery('Acidity and Heartburn')" class="px-3 py-1.5 rounded-full text-xs font-medium bg-navy-900 border border-white/10 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-300 transition-colors">✦ Acidity</button>
+        <button type="button" onclick="setDiseaseQuery('Mild Migraine')" class="px-3 py-1.5 rounded-full text-xs font-medium bg-navy-900 border border-white/10 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-300 transition-colors">✦ Migraine</button>
+        <button type="button" onclick="setDiseaseQuery('Sore Throat')" class="px-3 py-1.5 rounded-full text-xs font-medium bg-navy-900 border border-white/10 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-300 transition-colors">✦ Sore Throat</button>
+        <button type="button" onclick="setDiseaseQuery('Dry Cough')" class="px-3 py-1.5 rounded-full text-xs font-medium bg-navy-900 border border-white/10 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-300 transition-colors">✦ Dry Cough</button>
+    </div>
+
+    <!-- Chat Console Wrapper -->
+    <div class="bg-navy-900/90 border border-white/10 rounded-2xl shadow-2xl backdrop-blur-md overflow-hidden flex flex-col h-[580px]">
+        
+        <!-- Header Bar -->
+        <div class="px-6 py-4 border-b border-white/10 bg-navy-950/60 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-cyan-950 border border-cyan-700/50 flex items-center justify-center text-cyan-400">
+                    <img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Icon" class="w-6 h-6 object-contain" />
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
+                        MedTed Remedies Assistant
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    </h3>
+                    <p class="text-xs text-slate-400">Powered by Google Gemini Generative AI</p>
+                </div>
+            </div>
+
+            <span class="text-xs font-mono text-cyan-400 bg-cyan-950/80 px-2.5 py-1 rounded border border-cyan-800/40">
+                gemini-2.5-flash
+            </span>
+        </div>
+
+        <!-- Scrollable Messages Container -->
+        <div id="remedy-messages" class="flex-grow p-6 overflow-y-auto flex flex-col gap-4">
+            
+            <!-- Default Bot Welcome Bubble -->
+            <div class="message-wrapper">
+                <div class="bot-avatar">
+                    <img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Avatar" />
+                </div>
+                <div class="message bot-message">
+                    Hello! I'm your digital wellness companion. Tell me what condition or ailment you're experiencing (e.g. <em>sore throat, insomnia, bloating</em>), and I'll share safe, natural home measures to help.
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Input Dock -->
+        <form id="remedy-form" class="p-4 border-t border-white/10 bg-navy-950/70 flex items-center gap-3">
+            <input 
+                type="text" 
+                id="disease-input" 
+                placeholder="Type a disease or condition name (e.g. Common Cold)..." 
+                autocomplete="off" 
+                required 
+                class="flex-1 bg-navy-900 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+            />
+            <button 
+                type="submit" 
+                aria-label="Submit disease for remedies"
+                class="p-3.5 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white shadow-md shadow-cyan-900/40 transition-transform active:scale-95 flex items-center justify-center"
+            >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+            </button>
+        </form>
+
+    </div>
+
+    <!-- Mandatory Disclaimer -->
+    <div class="mt-6 p-4 rounded-xl bg-navy-950/60 border border-white/5 text-xs text-slate-400 flex items-start gap-2.5">
+        <svg class="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        <p><strong>Clinical Caution:</strong> Home remedies are intended for comfort and supplementary self-care in mild, non-emergency conditions. If symptoms persist or worsen, please consult a qualified doctor immediately.</p>
+    </div>
+
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script>
+  function setDiseaseQuery(name) {
+    const input = document.getElementById('disease-input');
+    if (input) {
+      input.value = name;
+      input.focus();
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const remedyForm = document.getElementById('remedy-form');
     const diseaseInput = document.getElementById('disease-input');
@@ -290,10 +209,10 @@
       diseaseInput.value = '';
       appendMessage('...', 'loading');
       
-      remedyForm.classList.add('disabled');
+      remedyForm.classList.add('opacity-70', 'pointer-events-none');
 
       try {
-        const response = await fetch('/api/get_remedies', {
+        const response = await fetch('/api/get_remedies/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ disease: userInput })
@@ -302,16 +221,15 @@
         
         document.getElementById('loading-message')?.remove();
 
-        const typingIndicator = appendMessage('MedTed is typing...', 'typing');
+        const typingIndicator = appendMessage('MedTed is generating remedies...', 'typing');
         
-        const delay = Math.random() * 800 + 700;
         setTimeout(() => {
             typingIndicator?.remove();
             
             if (data.error) {
                 appendMessage(data.error, 'bot');
             } else {
-                const text = data.remedies;
+                const text = data.remedies || "No specific remedies found.";
                 if (text.includes('\n')) {
                     const remediesList = text.split('\n').filter(Boolean);
                     const formattedRemedies = `<ul>${remediesList.map(r => `<li>${r}</li>`).join('')}</ul>`;
@@ -320,14 +238,15 @@
                     appendMessage(text, 'bot');
                 }
             }
-            remedyForm.classList.remove('disabled');
-        }, delay);
+            remedyForm.classList.remove('opacity-70', 'pointer-events-none');
+            diseaseInput.focus();
+        }, 500);
 
       } catch (error) {
         document.getElementById('loading-message')?.remove();
-        appendMessage('Sorry, I could not connect to the server.', 'bot');
+        appendMessage('Sorry, could not connect to the backend server. Please try again.', 'bot');
         console.error('Fetch Error:', error);
-        remedyForm.classList.remove('disabled');
+        remedyForm.classList.remove('opacity-70', 'pointer-events-none');
       }
     });
 
@@ -336,16 +255,31 @@
       messageWrapper.className = 'message-wrapper';
       
       if (type === 'bot') {
-        messageWrapper.innerHTML = `<div class="bot-avatar"><img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Avatar" /></div><div class="message bot-message">${text}</div>`;
+        messageWrapper.innerHTML = `
+          <div class="bot-avatar">
+            <img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Avatar" />
+          </div>
+          <div class="message bot-message">${text}</div>
+        `;
       } else if (type === 'user') {
         messageWrapper.className += ' user-query-wrapper';
         messageWrapper.innerHTML = `<div class="message user-query">${text}</div>`;
       } else if (type === 'loading') {
         messageWrapper.id = 'loading-message';
-        messageWrapper.innerHTML = `<div class="bot-avatar"><img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Avatar" /></div><div class="message bot-message loading-dots"><span></span><span></span><span></span></div>`;
+        messageWrapper.innerHTML = `
+          <div class="bot-avatar">
+            <img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Avatar" />
+          </div>
+          <div class="message bot-message loading-dots"><span></span><span></span><span></span></div>
+        `;
       } else if (type === 'typing') {
         messageWrapper.id = 'typing-indicator';
-        messageWrapper.innerHTML = `<div class="bot-avatar"><img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Avatar" /></div><div class="message bot-message typing-indicator">${text}</div>`;
+        messageWrapper.innerHTML = `
+          <div class="bot-avatar">
+            <img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Avatar" />
+          </div>
+          <div class="message bot-message italic text-slate-400 text-xs">${text}</div>
+        `;
       }
 
       remedyMessages.appendChild(messageWrapper);
@@ -356,4 +290,3 @@
   });
 </script>
 {% endblock %}
-

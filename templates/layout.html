@@ -1,194 +1,353 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
-    <title>{% block title %}MEDiWiSE{% endblock %}</title>
-    <meta property="og:title" content="Planical modern template" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
-    <meta property="twitter:card" content="summary_large_image" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}MEDiWiSE — AI Digital Health Assistant{% endblock %}</title>
+    <meta name="description" content="AI-Powered Health Assistant for symptom prediction, skin disease classification, and instant home remedies." />
+
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS v3 CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        navy: {
+                            950: '#070D18',
+                            900: '#0B1528',
+                            850: '#0F1E38',
+                            800: '#142544',
+                            700: '#1C345C',
+                            600: '#2A4B7C',
+                        },
+                        cyan: {
+                            400: '#22D3EE',
+                            500: '#06B6D4',
+                            600: '#0891B2',
+                        },
+                        emerald: {
+                            400: '#34D399',
+                            500: '#10B981',
+                            600: '#059669',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B1528;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1C345C;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2A4B7C;
+        }
+
+        /* Glassmorphism helpers */
+        .glass-nav {
+            background: rgba(11, 21, 40, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(15, 30, 56, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Chat Widget Styles */
+        .chat-widget-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+        }
+        .chat-window {
+            position: absolute;
+            bottom: 72px;
+            right: 0;
+            width: 380px;
+            height: 540px;
+            max-width: calc(100vw - 32px);
+            max-height: calc(100vh - 120px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            transform: scale(0.9) translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #0B1528;
+        }
+        .chat-window.active {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .chat-window iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 
     {% block styles %}{% endblock %}
-
-    <style data-tag="reset-style-sheet">
-        html { line-height: 1.15; } body { margin: 0; } * { box-sizing: border-box; border-width: 0; border-style: solid; -webkit-font-smoothing: antialiased; } p, li, ul, pre, div, h1, h2, h3, h4, h5, h6, figure, blockquote, figcaption { margin: 0; padding: 0; } button { background-color: transparent; } button, input, optgroup, select, textarea { font-family: inherit; font-size: 100%; line-height: 1.15; margin: 0; } button, select { text-transform: none; } button, [type="button"], [type="reset"], [type="submit"] { -webkit-appearance: button; color: inherit; } button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner { border-style: none; padding: 0; } button:-moz-focus, [type="button"]:-moz-focus, [type="reset"]:-moz-focus, [type="submit"]:-moz-focus { outline: 1px dotted ButtonText; } a { color: inherit; text-decoration: inherit; } pre { white-space: normal; } input { padding: 2px 4px; } img { display: block; } details { display: block; margin: 0; padding: 0; } summary::-webkit-details-marker { display: none; } [data-thq="accordion"] [data-thq="accordion-content"] { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; padding: 0; } [data-thq="accordion"] details[data-thq="accordion-trigger"][open]+[data-thq="accordion-content"] { max-height: 1000vh; } details[data-thq="accordion-trigger"][open] summary [data-thq="accordion-icon"] { transform: rotate(180deg); } html { scroll-behavior: smooth }
-    </style>
-    <style data-tag="default-style-sheet">
-        html { font-family: Inter; font-size: 16px; } body { font-weight: 400; font-style: normal; text-decoration: none; text-transform: none; letter-spacing: normal; line-height: 1.15; color: var(--dl-color-gray-black); background: var(--dl-color-gray-white); fill: var(--dl-color-gray-black); }
-    </style>
-    <link rel="stylesheet" href="https://unpkg.com/animate.css@4.1.1/animate.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" data-tag="font" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" data-tag="font" />
-    <link rel="stylesheet" href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css" />
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-    <link href="{{ url_for('static', filename='index.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='responsive.css') }}" rel="stylesheet" />
 </head>
 
-<body>
-    <div class="home-container1">
-        
-        <!-- Navbar Section -->
-        <header class="navbar-navbar navbarroot-class-name">
-            <a href="{{ url_for('render_page', page_name='index.html') }}"><img alt="MEDiWiSE Logo" src="{{ url_for('static', filename='img/new-logo.png') }}" class="navbar-image1" /></a>
-            <div class="navbar-nav-content">
-                <div class="navbar-nav-links1">
-                    <span class="nav-link"><a href="{{ url_for('render_page', page_name='index.html') }}">Home</a></span>
-                    <span class="nav-link"><a href="{{ url_for('render_page', page_name='services.html') }}">Services</a></span>
-                    <span class="navbar-link3 nav-link"><a href="{{ url_for('render_page', page_name='help.html') }}">HELP</a></span>
-                    <span class="nav-link"><a href="{{ url_for('render_page', page_name='contact.html') }}">Contact</a></span>
-                </div>
-                <div class="get-started navbar-get-started1 nav">
-                    <span class="navbar-text1"><a href="{{ url_for('render_page', page_name='aboutus.html') }}">About Us</a></span>
-                </div>
-                <div id="open-mobile-menu" class="navbar-hamburger get-started">
-                    <img alt="Mobile menu icon" src="{{ url_for('static', filename='public/Icons/hamburger-200h.png') }}" class="navbar-image2" />
-                </div>
-            </div>
-            
-            <!-- CORRECTED Mobile Menu Structure -->
-            <div id="mobile-menu" class="navbar-mobile-menu">
-                <div class="navbar-branding">
-                    <a href="{{ url_for('render_page', page_name='index.html') }}"><img alt="MEDiWiSE Logo" src="{{ url_for('static', filename='img/new-logo.png') }}" class="navbar-image3" /></a>
-                    <div id="close-mobile-menu" class="navbar-container1">
-                        <svg viewBox="0 0 1024 1024" class="navbar-icon1">
-                            <path d="M225.835 286.165l225.835 225.835-225.835 225.835c-16.683 16.683-16.683 43.691 0 60.331s43.691 16.683 60.331 0l225.835-225.835 225.835 225.835c16.683 16.683 43.691 16.683 60.331 0s16.683-43.691 0-60.331l-225.835-225.835 225.835-225.835c16.683-16.683 16.683-43.691 0-60.331s-43.691-16.683-60.331 0l-225.835 225.835-225.835-225.835c-16.683-16.683-43.691-16.683-60.331 0s-16.683 43.691 0 60.331z"></path>
-                        </svg>
+<body class="bg-navy-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-cyan-500 selection:text-white">
+
+    <!-- Top Emergency Banner -->
+    <aside aria-label="Emergency guidance banner" class="bg-gradient-to-r from-red-600 via-rose-600 to-amber-600 text-white text-xs py-1.5 px-4 text-center font-medium tracking-wide flex items-center justify-center gap-2 relative z-50">
+        <span class="inline-block w-2 h-2 rounded-full bg-white animate-ping"></span>
+        <span>Experiencing a critical medical emergency?</span>
+        <a href="tel:108" class="font-bold underline hover:text-amber-200 transition-colors inline-flex items-center gap-1">
+            Call Emergency 108 Immediately
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        </a>
+    </aside>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 glass-nav transition-all duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="{{ url_for('render_page', page_name='index.html') }}" class="flex items-center gap-3 group">
+                    <img alt="MEDiWiSE Logo" src="{{ url_for('static', filename='img/new-logo.png') }}" class="h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105" />
+                    <div class="hidden sm:block">
+                        <span class="text-xl font-bold tracking-tight text-white flex items-center gap-1.5">
+                            MEDi<span class="text-cyan-400">WiSE</span>
+                        </span>
+                        <span class="block text-[10px] uppercase font-semibold tracking-wider text-slate-400 -mt-1">
+                            Digital Health Assistant
+                        </span>
                     </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center gap-1 bg-navy-900/60 p-1.5 rounded-full border border-white/5">
+                    <a href="{{ url_for('render_page', page_name='index.html') }}" class="nav-item px-4 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-full transition-colors hover:bg-white/5">Home</a>
+                    <a href="{{ url_for('render_page', page_name='services.html') }}" class="nav-item px-4 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-full transition-colors hover:bg-white/5">Services</a>
+                    <a href="{{ url_for('render_page', page_name='ml_predict.html') }}" class="nav-item px-4 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-full transition-colors hover:bg-white/5">Symptom AI</a>
+                    <a href="{{ url_for('render_page', page_name='dl_predict.html') }}" class="nav-item px-4 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-full transition-colors hover:bg-white/5">Skin Check</a>
+                    <a href="{{ url_for('render_page', page_name='remedies.html') }}" class="nav-item px-4 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-full transition-colors hover:bg-white/5">Remedies</a>
+                    <a href="{{ url_for('render_page', page_name='help.html') }}" class="nav-item px-4 py-2 text-sm font-medium text-rose-400 hover:text-rose-300 rounded-full transition-colors hover:bg-rose-500/10 flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                        Help
+                    </a>
+                    <a href="{{ url_for('render_page', page_name='contact.html') }}" class="nav-item px-4 py-2 text-sm font-medium text-slate-300 hover:text-white rounded-full transition-colors hover:bg-white/5">Contact</a>
+                </nav>
+
+                <!-- Action Button & Mobile Trigger -->
+                <div class="flex items-center gap-3">
+                    <a href="/api/docs/" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-medium text-cyan-400 bg-cyan-950/40 border border-cyan-800/60 hover:bg-cyan-900/50 transition-colors">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                        API Docs
+                    </a>
+
+                    <a href="{{ url_for('render_page', page_name='aboutus.html') }}" class="hidden lg:inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 shadow-md shadow-cyan-900/30 transition-all hover:scale-[1.02]">
+                        About Us
+                    </a>
+
+                    <!-- Mobile Hamburger Button -->
+                    <button id="open-mobile-menu" type="button" aria-label="Open navigation menu" class="md:hidden p-2.5 rounded-xl bg-navy-850 text-slate-300 hover:text-white border border-white/10 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
                 </div>
-                <div class="navbar-nav-links2">
-                    <span class="nav-link"><a href="{{ url_for('render_page', page_name='index.html') }}">Home</a></span>
-                    <span class="nav-link"><a href="{{ url_for('render_page', page_name='services.html') }}">Services</a></span>
-                    <span class="nav-link"><a href="{{ url_for('render_page', page_name='help.html') }}">HELP</a></span>
-                    <span class="nav-link"><a href="{{ url_for('render_page', page_name='contact.html') }}">Contact</a></span>
-                </div>
-                <div class="get-started mobile-about-btn">
-                    <span class="navbar-text2"><a href="{{ url_for('render_page', page_name='aboutus.html') }}">About Us</a></span>
-                </div>
-            </div>
-        </header>
-        
-        <!-- Chatbot Widget -->
-        <div class="chat-widget-container">
-            <button id="chat-toggle-button" class="chat-button">
-                <img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Chat Icon">
-            </button>
-            <div id="chat-window" class="chat-window">
-                <iframe src="{{ url_for('render_page', page_name='chat.html') }}" frameborder="0"></iframe>
+
             </div>
         </div>
 
-        {% block content %}{% endblock %}
-
-        <!-- Footer Section -->
-        <footer id="footer" class="footer-footer">
-            <div class="footer-content1">
-                <main class="footer-main-content">
-                    <div class="footer-content2">
-                        <header class="footer-main1">
-                            <div class="footer-header1">
-                                <a href="{{ url_for('render_page', page_name='index.html') }}"><img alt="MEDiWiSE Logo" src="{{ url_for('static', filename='img/new-logo.png') }}" class="footer-image" /></a>
-                                <span class="footer-text10"><span>Helping to grow Better Future together.</span></span>
-                            </div>
-                            <div class="footer-socials">
-                                <a href="https://www.linkedin.com/in/uttam-singh-dec24-mar24/" target="_blank" rel="noreferrer noopener" class="footer-link1"><img alt="LinkedIn" src="{{ url_for('static', filename='public/Icons/linkedin-200h.png') }}" class="social" /></a>
-                                <a href="https://github.com/01uttamsingh" target="_blank" rel="noreferrer noopener" class="footer-link-github">
-                                    <svg viewBox="0 0 24 24" class="social" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
-                                </a>
-                                <a href="https://example.com" target="_blank" rel="noreferrer noopener" class="footer-link2"><img alt="Instagram" src="{{ url_for('static', filename='public/Icons/instagram-200h.png') }}" class="social" /></a>
-                                <a href="https://example.com" target="_blank" rel="noreferrer noopener" class="footer-link3"><img alt="Twitter" src="{{ url_for('static', filename='public/Icons/twitter-200h.png') }}" class="social" /></a>
-                            </div>
-                        </header>
-                        <header class="footer-categories">
-                            <div class="footer-category1">
-                                <div class="footer-header2"><span class="footer-header"><span>Solutions</span></span></div>
-                                <div class="footer-links1">
-                                    <span class="footer-link"><span>Responsive Web Design</span></span>
-                                    <span class="footer-link"><span>Design to Code</span></span>
-                                    <span class="footer-link"><span>Static Website Builder</span></span>
-                                    <span class="footer-link"><span>ML models generation</span></span>
-                                    <span class="footer-link"><span>Content Writer</span></span>
-                                </div>
-                            </div>
-                            <div class="footer-category2">
-                                <div class="footer-header3"><span class="footer-header"><span>Company</span></span></div>
-                                <div class="footer-links2">
-                                    <span class="footer-link"><span><a href="{{ url_for('render_page', page_name='aboutus.html') }}">About</a></span></span>
-                                    <span class="footer-link"><span><a href="#team">Our Team</a></span></span>
-                                </div>
-                            </div>
-                        </header>
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="fixed inset-y-0 right-0 w-80 max-w-[85vw] bg-navy-900 border-l border-white/10 shadow-2xl p-6 transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-6 border-b border-white/10">
+                    <div class="flex items-center gap-2.5">
+                        <img alt="MEDiWiSE Logo" src="{{ url_for('static', filename='img/new-logo.png') }}" class="h-8 w-auto" />
+                        <span class="font-bold text-lg text-white">MEDi<span class="text-cyan-400">WiSE</span></span>
                     </div>
-                    <section class="footer-copyright1"><span class="footer-text20"><span>© 2025&nbsp; MEDiWiSE. All Rights Reserved.</span></span></section>
-                </main>
-                <main class="footer-subscribe">
-                    <main class="footer-main2">
-                        <h1 class="footer-heading"><span>Mail us to Work With Us.</span></h1>
-                        <div class="footer-input-field">
-                            <input type="email" placeholder="Enter your email" class="footer-textinput input" />
-                            <div class="footer-buy button">
-                                <span class="footer-text21"><span>-&gt;</span></span>
-                                <span class="footer-text22">
-                                    <a href="mailto:uttamstudentof.cs@gmail.com?subject=Inquiry&body=Hello, I would like to know more about your services." class="footer-buy button">
-                                        <span class="footer-text21">-&gt;</span>
-                                        <span class="footer-text22">Mail Now</span>
-                                    </a>
-                                </span>
-                            </div>
-                        </div>
-                    </main>
-                    <h1 class="footer-notice">
-                        <span>
-                            <span>Write your short description of the work in the mail.</span><br />
-                            <span>Thank you!&nbsp;</span><br />
-                            <span>Have a great Day.</span><br />
-                        </span>
-                    </h1>
-                </main>
-                <section class="footer-copyright2"><span class="footer-text23"><span>© 2025&nbsp; MEDiWiSE. All Rights Reserved.</span></span></section>
+                    <button id="close-mobile-menu" type="button" aria-label="Close menu" class="p-2 rounded-lg text-slate-400 hover:text-white bg-white/5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+
+                <div class="mt-6 flex flex-col gap-2">
+                    <a href="{{ url_for('render_page', page_name='index.html') }}" class="px-4 py-3 rounded-xl text-sm font-medium text-slate-200 hover:bg-white/5 hover:text-white transition-colors">Home</a>
+                    <a href="{{ url_for('render_page', page_name='services.html') }}" class="px-4 py-3 rounded-xl text-sm font-medium text-slate-200 hover:bg-white/5 hover:text-white transition-colors">Services</a>
+                    <a href="{{ url_for('render_page', page_name='ml_predict.html') }}" class="px-4 py-3 rounded-xl text-sm font-medium text-slate-200 hover:bg-white/5 hover:text-white transition-colors">Symptom Prediction (ML)</a>
+                    <a href="{{ url_for('render_page', page_name='dl_predict.html') }}" class="px-4 py-3 rounded-xl text-sm font-medium text-slate-200 hover:bg-white/5 hover:text-white transition-colors">Skin Disease Check (DL)</a>
+                    <a href="{{ url_for('render_page', page_name='remedies.html') }}" class="px-4 py-3 rounded-xl text-sm font-medium text-slate-200 hover:bg-white/5 hover:text-white transition-colors">Home Remedies</a>
+                    <a href="{{ url_for('render_page', page_name='help.html') }}" class="px-4 py-3 rounded-xl text-sm font-semibold text-rose-400 hover:bg-rose-500/10 transition-colors flex items-center justify-between">
+                        <span>Emergency & Help</span>
+                        <span class="text-xs bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded-full">108</span>
+                    </a>
+                    <a href="{{ url_for('render_page', page_name='contact.html') }}" class="px-4 py-3 rounded-xl text-sm font-medium text-slate-200 hover:bg-white/5 hover:text-white transition-colors">Contact</a>
+                    <a href="/api/docs/" target="_blank" class="px-4 py-3 rounded-xl text-sm font-mono text-cyan-400 hover:bg-cyan-950/40 transition-colors">Swagger API Docs</a>
+                </div>
             </div>
-        </footer>
+
+            <div class="pt-6 border-t border-white/10">
+                <a href="{{ url_for('render_page', page_name='aboutus.html') }}" class="w-full block py-3 text-center rounded-xl text-sm font-medium text-white bg-gradient-to-r from-cyan-600 to-teal-600 shadow-md">
+                    About Project Team
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Floating MedTed Chatbot Widget -->
+    <div class="chat-widget-container">
+        <button id="chat-toggle-button" type="button" aria-label="Open AI Health Assistant MedTed" class="group relative flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-tr from-cyan-600 to-teal-500 text-white shadow-xl shadow-cyan-900/40 hover:scale-105 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-cyan-500/30">
+            <span class="absolute -top-1 -right-1 flex h-4 w-4">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-navy-950"></span>
+            </span>
+            <img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="MedTed Chat Icon" class="w-8 h-8 object-contain transition-transform group-hover:rotate-6">
+        </button>
+        <div id="chat-window" class="chat-window">
+            <iframe src="{{ url_for('render_page', page_name='chat.html') }}" title="MedTed AI Chatbot Assistant"></iframe>
+        </div>
     </div>
 
-    <!-- Global JavaScript -->
+    <!-- Main Content Injection -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-navy-900 border-t border-white/10 mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                
+                <!-- Brand & Mission -->
+                <div class="md:col-span-2 space-y-4">
+                    <a href="{{ url_for('render_page', page_name='index.html') }}" class="flex items-center gap-3">
+                        <img alt="MEDiWiSE Logo" src="{{ url_for('static', filename='img/new-logo.png') }}" class="h-9 w-auto object-contain" />
+                        <span class="text-xl font-bold tracking-tight text-white">
+                            MEDi<span class="text-cyan-400">WiSE</span>
+                        </span>
+                    </a>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-md">
+                        A digital health assistant combining machine learning symptom prediction, PyTorch deep learning skin classification, and generative AI remedies to empower healthier lives.
+                    </p>
+                    <div class="pt-2 flex items-center gap-3">
+                        <a href="https://github.com/01uttamsingh" target="_blank" rel="noreferrer noopener" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-colors" aria-label="GitHub Repository">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/uttam-singh-dec24-mar24/" target="_blank" rel="noreferrer noopener" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-colors" aria-label="LinkedIn Profile">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a href="/api/docs/" target="_blank" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-mono text-cyan-400 transition-colors">
+                            Swagger UI
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Quick Links -->
+                <div>
+                    <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-300 mb-4">Core Modules</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="{{ url_for('render_page', page_name='ml_predict.html') }}" class="text-slate-400 hover:text-cyan-400 transition-colors">Symptom Prediction</a></li>
+                        <li><a href="{{ url_for('render_page', page_name='dl_predict.html') }}" class="text-slate-400 hover:text-cyan-400 transition-colors">Skin Condition Check</a></li>
+                        <li><a href="{{ url_for('render_page', page_name='remedies.html') }}" class="text-slate-400 hover:text-cyan-400 transition-colors">Home Remedies AI</a></li>
+                        <li><a href="{{ url_for('render_page', page_name='help.html') }}" class="text-slate-400 hover:text-rose-400 transition-colors">Hospital & Clinic Finder</a></li>
+                    </ul>
+                </div>
+
+                <!-- Project & Contact -->
+                <div>
+                    <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-300 mb-4">Organization</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="{{ url_for('render_page', page_name='aboutus.html') }}" class="text-slate-400 hover:text-white transition-colors">About the Team</a></li>
+                        <li><a href="{{ url_for('render_page', page_name='contact.html') }}" class="text-slate-400 hover:text-white transition-colors">Support & Contact</a></li>
+                        <li><a href="tel:108" class="text-rose-400 hover:text-rose-300 transition-colors flex items-center gap-1.5 font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                            Emergency: 108
+                        </a></li>
+                        <li><a href="/api/schema/" target="_blank" class="text-slate-400 hover:text-white transition-colors font-mono text-xs">OpenAPI Schema</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Disclaimer & Copyright -->
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+                <p>
+                    © 2025–2026 MEDiWiSE. Built with Django REST Framework, PyTorch, & Gemini AI. Educational guidance only — not medical diagnosis.
+                </p>
+                <div class="flex items-center gap-4">
+                    <span class="inline-flex items-center gap-1 text-emerald-400">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        Services Online
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global Layout Scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const openMenuButton = document.getElementById('open-mobile-menu');
-            const closeMenuButton = document.getElementById('close-mobile-menu');
+            // Mobile Menu
+            const openMenuBtn = document.getElementById('open-mobile-menu');
+            const closeMenuBtn = document.getElementById('close-mobile-menu');
             const mobileMenu = document.getElementById('mobile-menu');
 
-            if (openMenuButton && mobileMenu) {
-                openMenuButton.addEventListener('click', () => {
-                    mobileMenu.style.transform = 'translateX(0%)';
+            if (openMenuBtn && mobileMenu) {
+                openMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.remove('translate-x-full');
                 });
             }
-            if (closeMenuButton && mobileMenu) {
-                closeMenuButton.addEventListener('click', () => {
-                    mobileMenu.style.transform = 'translateX(100%)';
+            if (closeMenuBtn && mobileMenu) {
+                closeMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.add('translate-x-full');
                 });
             }
 
-            const currentPage = location.pathname.split("/").pop() || "index.html";
-            const navLinks = document.querySelectorAll(".navbar-nav-links1 a, .navbar-nav-links2 a");
-            navLinks.forEach(link => {
-                if (link.getAttribute("href").includes(currentPage)) {
-                    link.parentElement.classList.add("active");
-                }
-            });
-
-            const chatToggleButton = document.getElementById('chat-toggle-button');
+            // Chatbot Popup toggle
+            const chatToggleBtn = document.getElementById('chat-toggle-button');
             const chatWindow = document.getElementById('chat-window');
-            if (chatToggleButton && chatWindow) {
-                chatToggleButton.addEventListener('click', () => {
+            if (chatToggleBtn && chatWindow) {
+                chatToggleBtn.addEventListener('click', () => {
                     chatWindow.classList.toggle('active');
                 });
             }
+
+            // Active nav highlight
+            const currentPath = window.location.pathname.replace(/^\//, '') || 'index.html';
+            document.querySelectorAll('.nav-item').forEach(link => {
+                const href = link.getAttribute('href') || '';
+                if (href.includes(currentPath) || (currentPath === 'index.html' && href.endsWith('/'))) {
+                    link.classList.add('bg-cyan-500/15', 'text-cyan-300', 'font-semibold');
+                    link.classList.remove('text-slate-300');
+                }
+            });
         });
     </script>
-    
+
     {% block scripts %}{% endblock %}
 
 </body>
 </html>
-

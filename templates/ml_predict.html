@@ -1,245 +1,178 @@
 {% extends "layout.html" %}
 
-{% block title %}Symptom Prediction - MEDiWiSE{% endblock %}
-
-{% block styles %}
-<!-- Internal Styles for Form & "How it Works" Section -->
-<style>
-  .symptom-section {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 50px 20px;
-    background-color: #0F0F0F;
-  }
-
-  .symptom-container {
-    max-width: 700px;
-    width: 100%;
-    background: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .symptom-heading {
-    font-size: 32px;
-    font-family: "Poppins";
-    font-weight: 600;
-    color: #0F0F0F;
-    text-align: center;
-  }
-
-  .symptom-subtitle {
-    font-size: 16px;
-    font-family: "Comic Sans MS";
-    color: #555;
-    text-align: center;
-    margin-bottom: 25px;
-  }
-
-  .symptom-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .symptom-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 8px;
-  }
-
-  .symptom-group input {
-    flex: 1;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #0F0F0F;
-    font-size: 1rem;
-    font-family: "Poppins";
-    border-width: 2px;
-  }
-
-  .remove-btn {
-    background: rgb(216, 53, 53);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 0 12px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .remove-btn:hover {
-    background: #c0392b;
-  }
-
-  .symptom-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-  }
-
-  #addSymptomBtn {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 10px;
-    background-color: lightblue;
-    font-family: "Poppins";
-    font-weight: 800;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  #addSymptomBtn:hover {
-    background-color: #3498db;
-    color: white;
-    transform: translateY(-3px);
-  }
-
-  .btn-green {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 10px;
-    background-color: #80FF44;
-    font-family: "Poppins";
-    font-weight: 800;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .btn-green:hover {
-    background-color: #4CAF50;
-    color: white;
-    transform: translateY(-3px);
-  }
-
-  .symptom-result {
-    margin-top: 30px;
-    padding: 20px;
-    border-radius: 12px;
-    background: #f1f8ff;
-    border: 1px solid #ddd;
-  }
-
-  .precaution-box {
-    margin-top: 15px;
-    padding: 15px;
-    background: #e8f7f0;
-    border-radius: 10px;
-  }
-
-  .precaution-box h3 {
-    margin-bottom: 10px;
-    font-family: "Poppins";
-    color: #16a085;
-  }
-
-  #about-working {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background: #0F0F0F;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    color: white;
-  }
-
-  #about-working h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #4CAF50;
-  }
-
-  #about-working p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: rgb(255, 255, 255);
-    text-align: justify;
-  }
-</style>
-{% endblock %}
+{% block title %}Symptom-Based Disease Prediction — MEDiWiSE{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<section-wrapper class="section-wrapper">
-  <section class="section-section">
-    <div class="section-hero">
-      <div class="section-content">
-        <main class="section-main">
-          <span class="section-caption1"><span>Wish you for a Better Health!</span></span>
-          <header class="section-header">
-            <h1 class="section-heading"><span>Are you ready with your Symptoms?</span></h1>
-          </header>
-          <div class="section-buttons">
-            <div class="section-get-started1 button callnow">
-              <span class="section-text1"><span><a href="#form">Predict</a></span></span>
-            </div>
-            <div class="section-get-started2 button">
-              <span class="section-text2"><span><a href="{{ url_for('render_page', page_name='index.html') }}">Back to Home</a></span></span>
-            </div>
-          </div>
-        </main>
-      </div>
-      <div class="service-img help-main">
-        <img alt="Symptom prediction illustration" src="{{ url_for('static', filename='img/predict_img.png') }}"
-          class="section-image2" style="margin-right: 130px ;" />
-      </div>
-    </div>
-  </section>
-</section-wrapper>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-<!-- Symptom Prediction Form Section -->
-<section class="symptom-section" id="form">
-  <div class="symptom-container">
-    <h2 class="symptom-heading"><strong>🩺 Predict Your Disease</strong></h2>
-    <p class="symptom-subtitle">Enter your symptoms below and get an instant prediction with precautions.</p>
-    <form id="symptomForm" class="symptom-form">
-      <div id="symptomInputs">
-        <div class="symptom-group">
-          <input type="text" name="symptom" placeholder="Enter symptom">
-          <button type="button" class="remove-btn" onclick="removeSymptom(this)">X</button>
+    <!-- Hero Header -->
+    <div class="text-center max-w-3xl mx-auto mb-14">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-700/40 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-4">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            Machine Learning Diagnostic Engine
         </div>
-      </div>
-      <div class="symptom-buttons">
-        <button type="button" id="addSymptomBtn" class="btn-green">+ Add Symptom</button>
-        <button type="submit" class="btn-green">Predict Disease</button>
-      </div>
-    </form>
-    <div id="predictionResult" class="symptom-result" style="display:none;">
-      <h3>🔍 Result</h3>
-      <p id="diseaseOutput">Possible Disease: <strong>---</strong></p>
-      <p id="accuracyOutput">Confidence: <strong>---</strong></p>
-      <div class="precaution-box">
-        <h3>💡 Precautions</h3>
-        <ul id="precautionList">
-          <li>---</li>
-        </ul>
-      </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+            Predict Possible Conditions from <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300">Your Symptoms</span>
+        </h1>
+        <p class="text-slate-400 text-base sm:text-lg leading-relaxed">
+            Enter one or more symptoms below. Our Random Forest AI model matches your symptoms against clinical disease patterns to estimate conditions and recommended precautions.
+        </p>
     </div>
-  </div>
-</section>
 
-<!-- How it Works Section -->
-<section id="about-working">
-  <h2>How our AI Disease Predictor Works?</h2>
-  <p>Our tool uses an advanced AI to suggest a possible health condition based on the symptoms you provide. Here’s a
-    simple breakdown of the process: </p>
-  <p><strong>1. You Enter Symptoms:</strong>1. You Enter Symptoms: Simply tell us how you're feeling by listing your
-    symptoms. </p>
-  <p><strong>2. AI Analysis:</strong> Our system, which has been trained on a massive dataset of over 4,900
-    diseases, instantly analyzes your input. It works like a digital expert, comparing your symptoms to the
-    thousands of patterns it has learned.</p>
-  <p> <strong>3. Instant Results:</strong> Based on its analysis, the AI identifies the most likely disease match.
-    It then provides you with the result, a confidence score, and a list of helpful precautions you can take.</p>
-  <br>
-  <p><span style="color: red; font-weight: 600;">Disclaimer:</span> This tool is for informational purposes only and
-    is not a substitute for professional medical advice. Always consult a qualified doctor for an accurate
-    diagnosis.</p>
-</section>
+    <!-- Main Diagnostic Grid: Form on Left, Output on Right -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Symptom Input Console -->
+        <div class="lg:col-span-6 bg-navy-900/90 border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+            
+            <div class="flex items-center justify-between pb-6 border-b border-white/10 mb-6">
+                <div>
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                        Symptom Entry
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Add symptoms you are currently experiencing</p>
+                </div>
+                <span class="text-xs font-mono text-cyan-400 bg-cyan-950/60 px-2.5 py-1 rounded-md border border-cyan-800/40">
+                    RF v1.7.2
+                </span>
+            </div>
+
+            <!-- Quick Add Pill Suggestions -->
+            <div class="mb-6">
+                <span class="text-xs font-medium text-slate-400 block mb-2">Common Symptoms (Click to Add):</span>
+                <div class="flex flex-wrap gap-2">
+                    <button type="button" onclick="addSuggestedSymptom('itching')" class="px-2.5 py-1 text-xs rounded-lg bg-navy-800 hover:bg-cyan-900/40 border border-white/5 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-200 transition-colors">+ Itching</button>
+                    <button type="button" onclick="addSuggestedSymptom('skin_rash')" class="px-2.5 py-1 text-xs rounded-lg bg-navy-800 hover:bg-cyan-900/40 border border-white/5 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-200 transition-colors">+ Skin Rash</button>
+                    <button type="button" onclick="addSuggestedSymptom('fever')" class="px-2.5 py-1 text-xs rounded-lg bg-navy-800 hover:bg-cyan-900/40 border border-white/5 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-200 transition-colors">+ Fever</button>
+                    <button type="button" onclick="addSuggestedSymptom('headache')" class="px-2.5 py-1 text-xs rounded-lg bg-navy-800 hover:bg-cyan-900/40 border border-white/5 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-200 transition-colors">+ Headache</button>
+                    <button type="button" onclick="addSuggestedSymptom('nausea')" class="px-2.5 py-1 text-xs rounded-lg bg-navy-800 hover:bg-cyan-900/40 border border-white/5 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-200 transition-colors">+ Nausea</button>
+                    <button type="button" onclick="addSuggestedSymptom('joint_pain')" class="px-2.5 py-1 text-xs rounded-lg bg-navy-800 hover:bg-cyan-900/40 border border-white/5 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-200 transition-colors">+ Joint Pain</button>
+                    <button type="button" onclick="addSuggestedSymptom('fatigue')" class="px-2.5 py-1 text-xs rounded-lg bg-navy-800 hover:bg-cyan-900/40 border border-white/5 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-200 transition-colors">+ Fatigue</button>
+                </div>
+            </div>
+
+            <!-- The Form -->
+            <form id="symptomForm" class="space-y-4">
+                <div id="symptomInputs" class="space-y-3">
+                    <div class="symptom-group flex items-center gap-2">
+                        <div class="relative flex-1">
+                            <input type="text" name="symptom" placeholder="e.g. headache, fever, fatigue" class="w-full bg-navy-950 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all">
+                        </div>
+                        <button type="button" class="remove-btn p-3 rounded-xl bg-navy-800 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 border border-white/5 transition-colors" onclick="removeSymptom(this)" title="Remove symptom">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="pt-4 flex flex-col sm:flex-row items-center gap-3">
+                    <button type="button" id="addSymptomBtn" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-navy-800 hover:bg-navy-700 text-slate-200 text-sm font-semibold border border-white/10 flex items-center justify-center gap-2 transition-all hover:border-cyan-500/40">
+                        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        Add Another Symptom
+                    </button>
+                    <button type="submit" class="w-full sm:flex-1 py-3 px-6 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white text-sm font-bold shadow-lg shadow-cyan-900/40 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        Run Prediction
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6 pt-6 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+                <span>Model: Random Forest Multilabel</span>
+                <span class="flex items-center gap-1 text-emerald-400">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    131 Recognized Clinical Features
+                </span>
+            </div>
+        </div>
+
+        <!-- Right: Diagnostic Output Board -->
+        <div class="lg:col-span-6 space-y-6">
+            
+            <!-- Result Container (Initially hidden or shows empty state) -->
+            <div id="predictionResult" class="bg-navy-900/90 border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md transition-all duration-300" style="display:none;">
+                
+                <div class="flex items-center justify-between pb-6 border-b border-white/10">
+                    <div class="flex items-center gap-2.5">
+                        <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+                        <h3 class="text-xl font-bold text-white">Diagnostic Output</h3>
+                    </div>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                        Analysis Complete
+                    </span>
+                </div>
+
+                <!-- Predicted Disease Banner -->
+                <div class="my-6 p-5 rounded-xl bg-gradient-to-br from-navy-850 to-navy-900 border border-cyan-500/30">
+                    <span class="text-xs uppercase tracking-wider font-semibold text-cyan-400 block mb-1">Identified Potential Condition</span>
+                    <div id="diseaseOutput" class="text-2xl sm:text-3xl font-extrabold text-white">
+                        ---
+                    </div>
+                    <div class="mt-3 flex items-center justify-between text-sm">
+                        <span class="text-slate-400">Model Confidence:</span>
+                        <span id="accuracyOutput" class="font-mono text-emerald-400 font-bold text-base">---</span>
+                    </div>
+                </div>
+
+                <!-- Precautions List -->
+                <div class="bg-navy-950/60 rounded-xl p-5 border border-white/5">
+                    <div class="flex items-center gap-2 text-emerald-400 font-semibold text-sm mb-3">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        Clinical Precautions & Guidance
+                    </div>
+                    <ul id="precautionList" class="space-y-2 text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 mt-1">•</span>
+                            <span>Awaiting symptoms input...</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-white/5 text-xs text-amber-300/80 flex items-start gap-2">
+                    <svg class="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    <span>This output is computed by an AI statistical model for informational reference only. Always confirm with a licensed medical practitioner.</span>
+                </div>
+            </div>
+
+            <!-- Empty / Standby Placeholder Card (shows before submission) -->
+            <div id="standbyCard" class="bg-navy-900/60 border border-dashed border-white/10 rounded-2xl p-8 text-center">
+                <div class="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 mx-auto flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Ready for Analysis</h3>
+                <p class="text-sm text-slate-400 max-w-sm mx-auto">
+                    Type your symptoms or select from the quick-add tags on the left, then click <strong>Run Prediction</strong> to generate results.
+                </p>
+            </div>
+
+            <!-- Educational / Methodology Card -->
+            <div class="bg-navy-900/60 border border-white/10 rounded-2xl p-6 sm:p-7">
+                <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    How the Engine Analyzes Symptoms
+                </h3>
+                <div class="space-y-3.5 text-xs sm:text-sm text-slate-300">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-cyan-950 text-cyan-400 font-bold text-xs flex items-center justify-center flex-shrink-0 border border-cyan-800/60">1</span>
+                        <p><strong>Vectorization:</strong> Input symptom strings are sanitized and converted into a 131-dimensional clinical binary feature vector.</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-cyan-950 text-cyan-400 font-bold text-xs flex items-center justify-center flex-shrink-0 border border-cyan-800/60">2</span>
+                        <p><strong>Random Forest Ensemble:</strong> Evaluated through hundreds of decision trees trained on multi-condition clinical records.</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-cyan-950 text-cyan-400 font-bold text-xs flex items-center justify-center flex-shrink-0 border border-cyan-800/60">3</span>
+                        <p><strong>Precaution Mapping:</strong> Cross-references the diagnosed condition against verified preventative and post-symptom measures.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -248,22 +181,58 @@
   const symptomInputsDiv = document.getElementById('symptomInputs');
   const addBtn = document.getElementById('addSymptomBtn');
   const resultBox = document.getElementById('predictionResult');
+  const standbyCard = document.getElementById('standbyCard');
   const diseaseOutput = document.getElementById('diseaseOutput');
   const accuracyOutput = document.getElementById('accuracyOutput');
   const precautionList = document.getElementById('precautionList');
 
+  // Quick suggestion helper
+  function addSuggestedSymptom(name) {
+    const existing = [...document.getElementsByName('symptom')];
+    // If first input is empty, fill it
+    if (existing.length === 1 && !existing[0].value.trim()) {
+      existing[0].value = name;
+      existing[0].focus();
+      return;
+    }
+    // Check if already in list
+    if (existing.some(i => i.value.trim().toLowerCase() === name.toLowerCase())) {
+      return;
+    }
+    createSymptomRow(name);
+  }
+
+  function createSymptomRow(initialValue = '') {
+    const div = document.createElement('div');
+    div.className = 'symptom-group flex items-center gap-2';
+    div.innerHTML = `
+      <div class="relative flex-1">
+        <input type="text" name="symptom" value="${initialValue}" placeholder="Enter symptom (e.g. fever)" class="w-full bg-navy-950 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all">
+      </div>
+      <button type="button" class="remove-btn p-3 rounded-xl bg-navy-800 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 border border-white/5 transition-colors" onclick="removeSymptom(this)" title="Remove symptom">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+      </button>
+    `;
+    symptomInputsDiv.appendChild(div);
+    const input = div.querySelector('input');
+    if (!initialValue) input.focus();
+  }
+
   // Add new symptom input field
   addBtn.addEventListener('click', () => {
-    const div = document.createElement('div');
-    div.className = 'symptom-group';
-    div.innerHTML = `<input type="text" name="symptom" placeholder="Enter symptom">
-                   <button type="button" class="remove-btn" onclick="removeSymptom(this)">X</button>`;
-    symptomInputsDiv.appendChild(div);
+    createSymptomRow();
   });
 
   // Remove a symptom input field
   function removeSymptom(btn) {
-    btn.parentElement.remove();
+    const rows = document.querySelectorAll('.symptom-group');
+    if (rows.length > 1) {
+      btn.closest('.symptom-group').remove();
+    } else {
+      // Clear value instead of removing the last input
+      const input = rows[0].querySelector('input');
+      if (input) input.value = '';
+    }
   }
 
   // Handle form submission
@@ -274,18 +243,22 @@
       .filter(Boolean);
 
     if (!symptoms.length) {
-      alert("⚠️ Please enter at least one symptom!");
+      alert("Please enter at least one symptom to analyze.");
       return;
     }
 
-    // Show loading state
-    diseaseOutput.innerHTML = "Possible Disease: <strong>Analyzing...</strong>";
-    accuracyOutput.innerHTML = "Confidence: <strong>...</strong>";
-    precautionList.innerHTML = '<li>Please wait...</li>';
+    // Show analyzing UI
+    if (standbyCard) standbyCard.style.display = "none";
     resultBox.style.display = "block";
+    diseaseOutput.innerHTML = `<span class="inline-flex items-center gap-2 text-cyan-300">
+      <svg class="animate-spin h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+      Analyzing symptoms...
+    </span>`;
+    accuracyOutput.innerHTML = `<span class="animate-pulse">Computing...</span>`;
+    precautionList.innerHTML = '<li class="text-slate-400 italic">Matching precautions in dataset...</li>';
 
     try {
-      const response = await fetch('/api/predict_symptoms', {
+      const response = await fetch('/api/predict_symptoms/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ symptoms: symptoms })
@@ -293,20 +266,25 @@
       const data = await response.json();
 
       if (data.error) {
-        alert('Error: ' + data.error);
-        diseaseOutput.innerHTML = "Possible Disease: <strong>Error</strong>";
-        precautionList.innerHTML = `<li>${data.error}</li>`;
+        diseaseOutput.innerHTML = `<span class="text-rose-400">${data.error}</span>`;
+        accuracyOutput.innerHTML = '<span class="text-rose-400">N/A</span>';
+        precautionList.innerHTML = `<li class="text-rose-300">${data.error}</li>`;
       } else {
-        diseaseOutput.innerHTML = "Possible Disease: <strong>" + data.disease + "</strong>";
-        accuracyOutput.innerHTML = "Confidence: <strong>" + data.accuracy + "</strong>";
-        precautionList.innerHTML = data.precautions.map(p => `<li>${p}</li>`).join("");
+        diseaseOutput.innerHTML = `<span class="text-white">${data.disease}</span>`;
+        accuracyOutput.innerHTML = `<span class="text-emerald-400">${data.accuracy}</span>`;
+        precautionList.innerHTML = data.precautions.map(p => `
+          <li class="flex items-start gap-2">
+            <span class="text-emerald-400 mt-0.5">•</span>
+            <span class="capitalize">${p}</span>
+          </li>
+        `).join("");
       }
     } catch (error) {
-      alert('An error occurred. Please check the console.');
       console.error("Fetch Error:", error);
-      diseaseOutput.innerHTML = "Possible Disease: <strong>Failed to connect</strong>";
+      diseaseOutput.innerHTML = `<span class="text-rose-400">Connection Error</span>`;
+      accuracyOutput.innerHTML = `<span class="text-rose-400">N/A</span>`;
+      precautionList.innerHTML = '<li class="text-rose-300">Could not connect to the backend server.</li>';
     }
   });
 </script>
 {% endblock %}
-

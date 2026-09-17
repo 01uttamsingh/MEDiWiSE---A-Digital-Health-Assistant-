@@ -4,197 +4,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedTed Chat</title>
+    <title>MedTed AI Health Assistant — MEDiWiSE</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            950: '#070D18',
+                            900: '#0B1528',
+                            850: '#0F1E38',
+                            800: '#142544',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        /* Basic styling for the chat window */
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #1A1A1A;
-            color: #E0E0E0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
+            background-color: #0B1528;
+            color: #F1F5F9;
         }
 
-        /* Header with bot name */
-        .chat-header {
-            background-color: #0F0F0F;
-            color: #FFFFFF;
-            padding: 15px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 18px;
-            border-bottom: 2px solid #80FF44;
-            flex-shrink: 0;
-        }
-
-        /* Container for all messages */
-        .chat-messages {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* Scrollbar styling */
-        .chat-messages::-webkit-scrollbar { width: 8px; }
-        .chat-messages::-webkit-scrollbar-track { background: #1A1A1A; }
-        .chat-messages::-webkit-scrollbar-thumb { background-color: #51515A; border-radius: 10px; }
-
-        /* Wrapper to hold avatar and message bubble together */
+        /* Message Bubbles */
         .message-wrapper {
             display: flex;
             align-items: flex-end;
             gap: 10px;
             max-width: 85%;
+            animation: bubbleIn 0.2s ease-out;
         }
-        
-        /* User's message wrapper aligns to the right */
         .user-query-wrapper {
             align-self: flex-end;
+            flex-direction: row-reverse;
         }
-
-        /* Bot avatar image */
         .bot-avatar {
             width: 32px;
             height: 32px;
             border-radius: 50%;
             overflow: hidden;
             flex-shrink: 0;
-            background-color: #292929;
+            background-color: #070D18;
+            border: 1.5px solid rgba(6, 182, 212, 0.4);
         }
         .bot-avatar img {
             width: 100%;
             height: 100%;
+            object-fit: cover;
         }
-
-        /* Individual message bubble */
         .message {
-            padding: 12px 18px;
-            border-radius: 20px;
+            padding: 12px 16px;
+            border-radius: 18px;
             line-height: 1.5;
-            text-align: left;
+            font-size: 0.875rem;
             word-wrap: break-word;
         }
-
-        /* Bot's message bubble style */
         .bot-message {
-            background-color: #292929;
-            border-bottom-left-radius: 5px;
+            background-color: #142544;
+            color: #F8FAFC;
+            border-bottom-left-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-
-        /* User's message bubble style */
         .user-query {
-            background-color: #80FF44;
-            color: #0F0F0F;
+            background: linear-gradient(135deg, #0284C7, #0D9488);
+            color: #FFFFFF;
             font-weight: 500;
-            border-bottom-right-radius: 5px;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
         }
 
-        /* Style for the "is typing..." indicator text */
-        .bot-message.typing-indicator {
-            font-style: italic;
-            color: #a0a0a0;
-        }
-
-        /* Input area at the bottom */
-        .chat-input {
-            display: flex;
-            padding: 15px;
-            border-top: 1px solid #51515A;
-            background-color: #0F0F0F;
-            flex-shrink: 0;
-        }
-        
-        /* Style to disable the input field while bot is responding */
-        .chat-input.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        .chat-input input {
-            flex-grow: 1;
-            background-color: #292929;
-            border: 1px solid transparent;
-            border-radius: 25px;
-            padding: 12px 20px;
-            color: white;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .chat-input input:focus {
-            border-color: #80FF44;
-        }
-
-        .chat-input button {
-            background-color: #80FF44;
-            border: none;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            margin-left: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        .chat-input button:hover {
-            background-color: #6ee02a;
-            transform: scale(1.1);
-        }
-        .chat-input button svg {
-            stroke: #0F0F0F;
-            width: 20px;
-            height: 20px;
-        }
-        
-        /* Styling for the green loading dots animation */
+        /* Loading animation */
         .loading-dots span {
             display: inline-block;
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            background-color: #80FF44;
+            background-color: #22D3EE;
+            margin: 0 2px;
             animation: bounce 1.4s infinite ease-in-out both;
         }
         .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
         .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
-
         @keyframes bounce {
             0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1.0); }
+            40% { transform: scale(1); }
         }
+        @keyframes bubbleIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scrollbar */
+        #chat-messages::-webkit-scrollbar { width: 6px; }
+        #chat-messages::-webkit-scrollbar-track { background: #0B1528; }
+        #chat-messages::-webkit-scrollbar-thumb { background: #1C345C; border-radius: 3px; }
     </style>
 </head>
 
-<body>
-    <div class="chat-header">
-        MedTed: Your Assistant
-    </div>
+<body class="bg-navy-900 text-slate-100 flex flex-col h-screen overflow-hidden antialiased">
 
-    <div id="chat-messages" class="chat-messages">
-        <div class="message-wrapper">
-            <div class="bot-avatar"><img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Avatar" /></div>
-            <div class="message bot-message">
-                <p>Hello! I'm MedTed, your AI health assistant. How can I help you today?</p>
+    <!-- Header -->
+    <header class="px-4 py-3.5 bg-navy-950 border-b border-white/10 flex items-center justify-between flex-shrink-0">
+        <div class="flex items-center gap-3">
+            <div class="relative">
+                <div class="w-9 h-9 rounded-full bg-cyan-950 border border-cyan-600/40 flex items-center justify-center">
+                    <img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="MedTed Icon" class="w-6 h-6 object-contain" />
+                </div>
+                <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-navy-950"></span>
+            </div>
+            <div>
+                <h1 class="text-sm font-bold text-white flex items-center gap-1.5 leading-none">
+                    MedTed AI
+                    <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-cyan-950/80 text-cyan-400 border border-cyan-800/40">Health Bot</span>
+                </h1>
+                <span class="text-[11px] text-slate-400">General medical guidance • 24/7</span>
             </div>
         </div>
+
+        <span class="text-xs font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-800/40 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Online
+        </span>
+    </header>
+
+    <!-- Chat Messages Scroll View -->
+    <main id="chat-messages" class="flex-grow p-4 overflow-y-auto flex flex-col gap-3.5">
+        <div class="message-wrapper">
+            <div class="bot-avatar">
+                <img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Avatar" />
+            </div>
+            <div class="message bot-message">
+                <p>Hello! I'm <strong>MedTed</strong>, your digital health assistant. Ask me anything about symptoms, basic wellness, nutrition, or first-aid precautions.</p>
+                <p class="text-[11px] text-slate-400 mt-1.5 border-t border-white/5 pt-1"><em>Note: I provide health information, not clinical prescriptions.</em></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Quick Prompts Dock -->
+    <div class="px-4 py-2 bg-navy-950/50 border-t border-white/5 flex gap-1.5 overflow-x-auto no-scrollbar text-xs">
+        <button type="button" onclick="sendQuickPrompt('How do I manage a tension headache?')" class="flex-shrink-0 px-2.5 py-1 rounded-full bg-navy-850 hover:bg-cyan-900/40 border border-white/10 text-slate-300 hover:text-cyan-300 transition-colors">
+            Tension Headache
+        </button>
+        <button type="button" onclick="sendQuickPrompt('What are early signs of dehydration?')" class="flex-shrink-0 px-2.5 py-1 rounded-full bg-navy-850 hover:bg-cyan-900/40 border border-white/10 text-slate-300 hover:text-cyan-300 transition-colors">
+            Dehydration signs
+        </button>
+        <button type="button" onclick="sendQuickPrompt('Tips for improving sleep quality')" class="flex-shrink-0 px-2.5 py-1 rounded-full bg-navy-850 hover:bg-cyan-900/40 border border-white/10 text-slate-300 hover:text-cyan-300 transition-colors">
+            Sleep tips
+        </button>
     </div>
 
-    <form id="chat-form" class="chat-input">
-        <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" required>
-        <button type="submit" aria-label="Send">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
+    <!-- Input Bar -->
+    <form id="chat-form" class="p-3.5 bg-navy-950 border-t border-white/10 flex items-center gap-2 flex-shrink-0">
+        <input 
+            type="text" 
+            id="user-input" 
+            placeholder="Type health question..." 
+            autocomplete="off" 
+            required 
+            class="flex-1 bg-navy-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+        />
+        <button 
+            type="submit" 
+            aria-label="Send message" 
+            class="p-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white shadow-md shadow-cyan-900/40 transition-transform active:scale-95 flex items-center justify-center flex-shrink-0"
+        >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
         </button>
     </form>
 
@@ -202,6 +195,11 @@
         const chatForm = document.getElementById('chat-form');
         const userInput = document.getElementById('user-input');
         const chatMessages = document.getElementById('chat-messages');
+
+        function sendQuickPrompt(promptText) {
+            userInput.value = promptText;
+            chatForm.dispatchEvent(new Event('submit', { cancelable: true }));
+        }
 
         chatForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -211,28 +209,24 @@
             appendMessage(messageText, 'user');
             userInput.value = '';
             
-            // Show loading dots and disable input
             const loadingIndicator = appendMessage('...', 'loading');
-            chatForm.classList.add('disabled');
+            chatForm.classList.add('opacity-70', 'pointer-events-none');
 
             try {
-                const response = await fetch('/api/chat', {
+                const response = await fetch('/api/chat/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: messageText })
                 });
                 const data = await response.json();
 
-                // Remove loading dots
                 loadingIndicator.remove();
                 
-                // Show "is typing..." indicator
                 const typingIndicator = appendMessage('MedTed is typing...', 'typing');
 
-                // Simulate a realistic delay
-                const delay = Math.random() * 900 + 600; // Random delay between 0.6s and 1.5s
+                const delay = Math.random() * 400 + 400;
                 setTimeout(() => {
-                    typingIndicator.remove(); // Remove the "is typing" message
+                    typingIndicator.remove();
                     
                     if (data.error) {
                         appendMessage(data.error, 'bot');
@@ -240,16 +234,15 @@
                         appendMessage(data.response, 'bot');
                     }
                     
-                    // Re-enable input after response is shown
-                    chatForm.classList.remove('disabled');
+                    chatForm.classList.remove('opacity-70', 'pointer-events-none');
+                    userInput.focus();
                 }, delay);
 
             } catch (error) {
                 loadingIndicator.remove();
-                appendMessage('Sorry, there was a connection error.', 'bot');
+                appendMessage('Sorry, there was a connection error to the health server.', 'bot');
                 console.error("Fetch Error:", error);
-                // Re-enable input on error
-                chatForm.classList.remove('disabled');
+                chatForm.classList.remove('opacity-70', 'pointer-events-none');
             }
         });
 
@@ -261,7 +254,6 @@
                 messageWrapper.classList.add('user-query-wrapper');
                 messageWrapper.innerHTML = `<div class="message user-query">${text}</div>`;
             } else {
-                // All bot messages (response, typing, loading) get an avatar
                 const avatarHTML = `<div class="bot-avatar"><img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Avatar" /></div>`;
                 let messageHTML = '';
 
@@ -272,16 +264,15 @@
                     messageHTML = `<div class="message bot-message loading-dots"><span></span><span></span><span></span></div>`;
                 } else if (type === 'typing') {
                     messageWrapper.id = 'typing-indicator';
-                    messageHTML = `<div class="message bot-message typing-indicator">${text}</div>`;
+                    messageHTML = `<div class="message bot-message text-xs italic text-slate-400">${text}</div>`;
                 }
                 messageWrapper.innerHTML = avatarHTML + messageHTML;
             }
             
             chatMessages.appendChild(messageWrapper);
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to the bottom
-            return messageWrapper; // Return the element so it can be removed later
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return messageWrapper;
         }
     </script>
 </body>
-
 </html>

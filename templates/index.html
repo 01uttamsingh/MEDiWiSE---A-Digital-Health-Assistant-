@@ -1,145 +1,329 @@
 {% extends "layout.html" %}
 
-{% block title %}MEDiWiSE - HOMEpage{% endblock %}
+{% block title %}MEDiWiSE — AI-Powered Digital Health Assistant{% endblock %}
+
+{% block styles %}
+<style>
+    /* Tab switcher classes for What We Do */
+    .feature-tab.active {
+        background-color: rgba(6, 182, 212, 0.12);
+        border-color: #22D3EE;
+        color: #FFFFFF;
+    }
+    .content-panel {
+        display: none;
+        animation: fadeInPanel 0.3s ease-in-out;
+    }
+    .content-panel.active-content {
+        display: grid;
+    }
+    @keyframes fadeInPanel {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<!-- Heading section starts from here-----------------------------  -->
-<section-wrapper class="section-wrapper">
-  <section class="section-section" id="home">
-    <div class="section-hero">
-      <div class="section-content">
-        <main class="section-main">
-          <span class="section-caption1">
-            <span class="home-text12">Welcome, Wish you for a Better Health!</span>
-          </span>
-          <header class="section-header">
-            <h1 class="section-heading">
-              <span class="home-text13">An AI-Powered Health Assistant for your Instant Needs</span>
-            </h1>
-          </header>
-          <div class="section-buttons">
-            <div class="section-get-started1 button">
-              <span class="section-text1">
-                <span class="home-text10"><a href="#whatwedo">Know more</a></span>
-              </span>
+<div class="space-y-24 py-8">
+
+    <!-- Hero Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left: Hero Headline & CTAs -->
+            <div class="lg:col-span-7 space-y-6">
+                
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-700/50 text-cyan-300 text-xs font-semibold tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                    MEDiWiSE Clinical Intelligence v2.0
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                    Smart AI Healthcare for <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">Instant Clinical Insights</span>
+                </h1>
+
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+                    Get rapid symptom evaluations, image-based skin disease classification, and AI-curated home remedies in one unified digital health portal.
+                </p>
+
+                <!-- CTAs -->
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <a href="{{ url_for('render_page', page_name='ml_predict.html') }}" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white font-bold text-sm shadow-xl shadow-cyan-900/40 transition-all hover:scale-[1.02] flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                        Predict from Symptoms
+                    </a>
+                    <a href="{{ url_for('render_page', page_name='dl_predict.html') }}" class="px-6 py-3.5 rounded-xl bg-navy-850 hover:bg-navy-800 text-slate-200 hover:text-white font-semibold text-sm border border-white/10 hover:border-cyan-500/40 transition-all flex items-center gap-2">
+                        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        Upload Skin Photo
+                    </a>
+                    <a href="#whatwedo" class="px-4 py-3.5 text-slate-400 hover:text-slate-200 text-sm font-medium transition-colors">
+                        Learn how it works ↓
+                    </a>
+                </div>
+
+                <!-- Live Metrics Ticker -->
+                <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-4 text-left">
+                    <div>
+                        <span class="block text-2xl font-extrabold text-white font-mono">131</span>
+                        <span class="text-xs text-slate-400">Clinical Symptoms</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-extrabold text-cyan-400 font-mono">7 Classes</span>
+                        <span class="text-xs text-slate-400">Skin Lesion Model</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-extrabold text-emerald-400 font-mono">24/7</span>
+                        <span class="text-xs text-slate-400">MedTed AI Guidance</span>
+                    </div>
+                </div>
+
             </div>
-            <div class="section-get-started2 button">
-              <span class="section-text2">
-                <span class="home-text11"><a href="{{ url_for('render_page', page_name='services.html') }}">Services</a></span>
-              </span>
+
+            <!-- Right: Hero Graphic Card -->
+            <div class="lg:col-span-5 relative">
+                <div class="relative mx-auto max-w-md lg:max-w-none">
+                    <div class="absolute -inset-1.5 bg-gradient-to-tr from-cyan-500/20 to-teal-500/20 rounded-3xl blur-2xl -z-10"></div>
+                    <div class="bg-navy-900/80 border border-white/10 rounded-3xl p-6 shadow-2xl backdrop-blur-xl">
+                        <img 
+                            src="{{ url_for('static', filename='img/hero-img.png') }}" 
+                            alt="MEDiWiSE AI Clinical Assistant" 
+                            class="w-full h-auto max-h-[380px] object-contain rounded-2xl mx-auto drop-shadow-2xl" 
+                        />
+                        <div class="mt-4 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+                            <span class="flex items-center gap-1.5 text-emerald-400 font-medium">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                Django REST Backend Ready
+                            </span>
+                            <a href="/api/docs/" target="_blank" class="text-cyan-400 hover:underline font-mono">Open Swagger →</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </main>
-      </div>
-      <div class="section-image1">
-        <img alt="Doctor with AI interface" src="{{ url_for('static', filename='img/hero-img.png') }}" class="section-image2" />
-      </div>
-      <div class="section-image3">
-        <img alt="Doctor with AI interface" src="{{ url_for('static', filename='img/hero-img.png') }}" class="section-image4" />
-      </div>
-    </div>
-  </section>
-</section-wrapper>
 
-<br><br><br><br><br><br><br><br>
+        </div>
+    </section>
 
-<!-- What we do section starts from here------------------------------   -->
-<what-we-do-wrapper class="what-we-do-wrapper">
-  <section class="what-we-do-section" id="whatwedo">
-    <h2>What we Do?</h2>
-    <nav class="features-nav">
-      <div class="feature-tab active" data-target="predict-disease">
-        <h3>Predict your Disease</h3>
-        <p>Symptom based Prediction</p>
-      </div>
-      <div class="feature-tab" data-target="skin-prediction">
-        <h3>Skin-Disease Prediction</h3>
-        <p>Predict skin disease using image</p>
-      </div>
-      <div class="feature-tab" data-target="remedies">
-        <h3>Remedies at Home</h3>
-        <p>Give your disease name and read your remedies</p>
-      </div>
-    </nav>
-    <div class="features-content">
-      <div class="content-panel active-content" id="predict-disease">
-        <div class="content-text">
-          <h3>Predict Your Disease</h3>
-          <p>Just enter your symptoms, and our system will predict a possible disease and suggest precautions you should take. It also displays the accuracy of the prediction, as it is powered by a machine learning model trained on real datasets.</p>
-          <p><span style="color: red; font-weight: 300;">Please note:</span> predictions may not always be accurate. Always consult a doctor—either by calling or visiting a hospital. This is a helpful guidance system, not a medical diagnosis.</p>
+    <!-- 3 Core Services Triage Cards -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Our Core Diagnostic Services</h2>
+            <p class="text-slate-400 text-sm mt-2">Pick a module tailored to your immediate clinical or wellness requirements.</p>
         </div>
-        <div class="content-image">
-          <img src="{{ url_for('static', filename='img/predict_img.png') }}" alt="Symptom Prediction Interface">
-        </div>
-      </div>
-      <div class="content-panel" id="skin-prediction">
-        <div class="content-text">
-          <h3>Skin-Disease Prediction</h3>
-          <p>This system uses a deep learning model trained on 7 common types of diseases. It predicts a possible disease based on your symptoms and provides precautions you can take. Please note: this is not a medical diagnosis. Always consult a doctor for accurate advice.</p>
-          <p><span style="color: red; font-weight: 300;">Disclaimer:</span> This is an AI-powered prediction and not a substitute for professional medical advice. Please consult a dermatologist for an accurate diagnosis.</p>
-        </div>
-        <div class="content-image">
-          <img src="{{ url_for('static', filename='img/skin_disease.png') }}" alt="Skin Disease Prediction Interface">
-        </div>
-      </div>
-      <div class="content-panel" id="remedies">
-        <div class="content-text">
-          <h3>Remedies at Home</h3>
-          <p>Just enter the name of the disease, and the system will provide home remedies for quick relief. Please note: these remedies are for temporary comfort and do not replace professional medical advice. Always consult a doctor for proper treatment.</p>
-          <p><span style="color: red; font-weight: 300;">Important:</span> These remedies are for mild symptoms and supplementary care. They are not a cure. Always consult a healthcare provider for serious medical issues.</p>
-        </div>
-        <div class="content-image">
-          <img src="{{ url_for('static', filename='img/remedies_service.png') }}" alt="Home Remedies Interface">
-        </div>
-      </div>
-    </div>
-  </section>
-</what-we-do-wrapper>
 
-<!-- Team section starts from here------------------------------ -->
-<section id="team" class="home-section6">
-  <header class="home-header4">
-    <header class="home-left">
-      <span class="section-head">Our TEAM</span>
-      <h2 class="section-heading">Meet our Team Members</h2>
-    </header>
-    <div class="home-right"></div>
-  </header>
-  <main class="home-cards">
-    <card-wrapper class="card-wrapper" rootclassname="cardundefined">
-      <section class="card-card cardroot-class-name">
-        <div class="card-icon1"><img alt="Front-end icon" src="{{ url_for('static', filename='public/Icons/group 1316-200w.png') }}" class="card-icon2" /></div>
-        <main class="card-content">
-          <h1 class="card-header"><span>Front-End</span></h1>
-          <p class="card-description"><span>Ashish Mishra, Student at Dev BHoomi Uttrakhand University, Dehradun</span></p>
-        </main>
-      </section>
-    </card-wrapper>
-    <card-wrapper-rkrw class="card-wrapper-rkrw" rootclassname="cardundefined">
-      <section class="card-card1 cardroot-class-name1">
-        <div class="card-icon3"><img alt="Back-end icon" src="{{ url_for('static', filename='public/Icons/group 1314-200h.png') }}" class="card-icon4" /></div>
-        <main class="card-content1">
-          <h1 class="card-header1"><span>Back-End</span></h1>
-          <p class="card-description1"><span>Bimochan Jena, Student at Dev Bhoomi Uttrakhand University, Dehradun.</span></p>
-        </main>
-      </section>
-    </card-wrapper-rkrw>
-    <card-wrapper-ixt3 class="card-wrapper-ixt3" rootclassname="cardundefined">
-      <section class="card-card2 cardroot-class-name2">
-        <div class="card-icon5"><img alt="Machine Learning icon" src="{{ url_for('static', filename='public/Icons/group 1317-200h.png') }}" class="card-icon6" /></div>
-        <main class="card-content2">
-          <h1 class="card-header2"><span>ML Models</span></h1>
-          <p class="card-description2"><span>Uttam Singh, Student at Dev Bhoomi Uttrakhand University, Dehradun.</span></p>
-        </main>
-      </section>
-    </card-wrapper-ixt3>
-  </main>
-</section>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Service 1: Symptom Prediction -->
+            <div class="bg-navy-900/70 border border-white/10 hover:border-cyan-500/40 rounded-2xl p-6 flex flex-col justify-between transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-950/50">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    </div>
+                    <span class="text-xs uppercase font-mono text-cyan-400 tracking-wider">Machine Learning</span>
+                    <h3 class="text-xl font-bold text-white mt-1 mb-2">Symptom Prediction</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Input reported symptoms into our Random Forest classifier to discover potential conditions, accuracy metrics, and prevention tips.
+                    </p>
+                </div>
+                <a href="{{ url_for('render_page', page_name='ml_predict.html') }}" class="w-full py-2.5 px-4 rounded-xl text-center text-sm font-semibold text-cyan-300 bg-cyan-950/60 border border-cyan-800/40 hover:bg-cyan-900/60 transition-colors">
+                    Start Symptom Check →
+                </a>
+            </div>
+
+            <!-- Service 2: Skin Disease Prediction -->
+            <div class="bg-navy-900/70 border border-white/10 hover:border-teal-500/40 rounded-2xl p-6 flex flex-col justify-between transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-teal-950/50">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <span class="text-xs uppercase font-mono text-teal-400 tracking-wider">Deep Learning</span>
+                    <h3 class="text-xl font-bold text-white mt-1 mb-2">Skin Condition Check</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Upload affected skin pictures. The PyTorch EfficientNet-B0 vision model classifies among 7 distinct dermatological categories.
+                    </p>
+                </div>
+                <a href="{{ url_for('render_page', page_name='dl_predict.html') }}" class="w-full py-2.5 px-4 rounded-xl text-center text-sm font-semibold text-teal-300 bg-teal-950/60 border border-teal-800/40 hover:bg-teal-900/60 transition-colors">
+                    Analyze Skin Photo →
+                </a>
+            </div>
+
+            <!-- Service 3: Natural Home Remedies -->
+            <div class="bg-navy-900/70 border border-white/10 hover:border-emerald-500/40 rounded-2xl p-6 flex flex-col justify-between transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-950/50">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-5">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                    </div>
+                    <span class="text-xs uppercase font-mono text-emerald-400 tracking-wider">Generative AI</span>
+                    <h3 class="text-xl font-bold text-white mt-1 mb-2">Home Remedies AI</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Enter any disease or symptom to receive practical, safe home care remedies and lifestyle recommendations generated via Gemini AI.
+                    </p>
+                </div>
+                <a href="{{ url_for('render_page', page_name='remedies.html') }}" class="w-full py-2.5 px-4 rounded-xl text-center text-sm font-semibold text-emerald-300 bg-emerald-950/60 border border-emerald-800/40 hover:bg-emerald-900/60 transition-colors">
+                    Browse Remedies →
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- "What We Do" Interactive Tabbed Showcase -->
+    <section id="whatwedo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-navy-900/90 border border-white/10 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md">
+            
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-xs uppercase font-bold text-cyan-400 tracking-widest block mb-2">Deep Dive</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">How the MEDiWiSE Platform Operates</h2>
+                <p class="text-slate-400 text-sm mt-2">Switch between tabs to see the technology powering each service.</p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-10 features-nav">
+                <button type="button" class="feature-tab active px-5 py-3 rounded-xl border border-white/10 text-slate-300 font-semibold text-sm transition-all" data-target="predict-disease">
+                    Symptom-Based Analysis
+                </button>
+                <button type="button" class="feature-tab px-5 py-3 rounded-xl border border-white/10 text-slate-300 font-semibold text-sm transition-all" data-target="skin-prediction">
+                    Skin Image Detection
+                </button>
+                <button type="button" class="feature-tab px-5 py-3 rounded-xl border border-white/10 text-slate-300 font-semibold text-sm transition-all" data-target="remedies">
+                    Natural Remedies Assistant
+                </button>
+            </div>
+
+            <!-- Tab Content Panels -->
+            <div class="features-content">
+                
+                <!-- Panel 1: Predict Disease -->
+                <div class="content-panel active-content grid-cols-1 lg:grid-cols-12 gap-8 items-center" id="predict-disease">
+                    <div class="lg:col-span-6 space-y-4">
+                        <span class="text-xs font-mono text-cyan-400 uppercase tracking-wide">Multi-Feature Classifier</span>
+                        <h3 class="text-2xl font-bold text-white">Random Forest Clinical Matching</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Input multiple symptoms into our system. The machine learning model compares your inputs across 131 encoded medical markers to compute the most statistically probable condition.
+                        </p>
+                        <p class="text-slate-400 text-xs leading-relaxed border-l-2 border-cyan-500 pl-3">
+                            <span class="text-amber-400 font-semibold">Important Notice:</span> AI outputs assist in symptom awareness and should be verified with a primary care doctor.
+                        </p>
+                        <div class="pt-2">
+                            <a href="{{ url_for('render_page', page_name='ml_predict.html') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:text-cyan-300">
+                                Open Symptom Predictor →
+                            </a>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-6">
+                        <div class="bg-navy-950 p-4 rounded-2xl border border-white/10">
+                            <img src="{{ url_for('static', filename='img/predict_img.png') }}" alt="Symptom Prediction UI" class="w-full h-auto max-h-[300px] object-contain rounded-xl mx-auto" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 2: Skin Prediction -->
+                <div class="content-panel grid-cols-1 lg:grid-cols-12 gap-8 items-center" id="skin-prediction">
+                    <div class="lg:col-span-6 space-y-4">
+                        <span class="text-xs font-mono text-teal-400 uppercase tracking-wide">PyTorch Neural Architecture</span>
+                        <h3 class="text-2xl font-bold text-white">Dermatological Image Processing</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Trained on clinical datasets, the EfficientNet-B0 network normalizes incoming photographs and detects surface features corresponding to Eczema, Dermatitis, Scabies, and other conditions.
+                        </p>
+                        <p class="text-slate-400 text-xs leading-relaxed border-l-2 border-teal-500 pl-3">
+                            <span class="text-amber-400 font-semibold">Dermatology Disclaimer:</span> Visual identification cannot replace dermoscopy or skin biopsy by a licensed physician.
+                        </p>
+                        <div class="pt-2">
+                            <a href="{{ url_for('render_page', page_name='dl_predict.html') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-teal-400 hover:text-teal-300">
+                                Launch Skin Checker →
+                            </a>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-6">
+                        <div class="bg-navy-950 p-4 rounded-2xl border border-white/10">
+                            <img src="{{ url_for('static', filename='img/skin_disease.png') }}" alt="Skin Disease Prediction UI" class="w-full h-auto max-h-[300px] object-contain rounded-xl mx-auto" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 3: Remedies -->
+                <div class="content-panel grid-cols-1 lg:grid-cols-12 gap-8 items-center" id="remedies">
+                    <div class="lg:col-span-6 space-y-4">
+                        <span class="text-xs font-mono text-emerald-400 uppercase tracking-wide">AI Generative Engine</span>
+                        <h3 class="text-2xl font-bold text-white">Safe, Natural Home Wellness Measures</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Gemini AI curates evidence-informed non-pharmacological remedies (herbal teas, hydration, warm compresses) to relieve mild ailments quickly and safely.
+                        </p>
+                        <p class="text-slate-400 text-xs leading-relaxed border-l-2 border-emerald-500 pl-3">
+                            <span class="text-amber-400 font-semibold">Self-Care Caution:</span> Remedies are meant for supplementary comfort only. Discontinue if allergies occur.
+                        </p>
+                        <div class="pt-2">
+                            <a href="{{ url_for('render_page', page_name='remedies.html') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300">
+                                Get Home Remedies →
+                            </a>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-6">
+                        <div class="bg-navy-950 p-4 rounded-2xl border border-white/10">
+                            <img src="{{ url_for('static', filename='img/remedies_service.png') }}" alt="Home Remedies UI" class="w-full h-auto max-h-[300px] object-contain rounded-xl mx-auto" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Team Members Section -->
+    <section id="team" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-xs uppercase font-bold text-cyan-400 tracking-widest block mb-2">Contributors</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Engineering & Development Team</h2>
+            <p class="text-slate-400 text-sm mt-2">Dev Bhoomi Uttarakhand University, Dehradun</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Team Member 1: Front-End -->
+            <div class="bg-navy-900/60 border border-white/10 rounded-2xl p-6 text-center hover:border-cyan-500/40 transition-colors">
+                <div class="w-16 h-16 rounded-full bg-cyan-950/80 border border-cyan-700/50 flex items-center justify-center mx-auto mb-4">
+                    <img alt="Front-end icon" src="{{ url_for('static', filename='public/Icons/group 1316-200w.png') }}" class="w-8 h-8 object-contain" />
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 inline-block mb-2">
+                    Front-End Engineering
+                </span>
+                <h3 class="text-lg font-bold text-white">Ashish Mishra</h3>
+                <p class="text-xs text-slate-400 mt-1">Dev Bhoomi Uttarakhand University, Dehradun</p>
+            </div>
+
+            <!-- Team Member 2: Back-End -->
+            <div class="bg-navy-900/60 border border-white/10 rounded-2xl p-6 text-center hover:border-teal-500/40 transition-colors">
+                <div class="w-16 h-16 rounded-full bg-teal-950/80 border border-teal-700/50 flex items-center justify-center mx-auto mb-4">
+                    <img alt="Back-end icon" src="{{ url_for('static', filename='public/Icons/group 1314-200h.png') }}" class="w-8 h-8 object-contain" />
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-teal-500/10 text-teal-300 border border-teal-500/20 inline-block mb-2">
+                    Back-End & Django Architecture
+                </span>
+                <h3 class="text-lg font-bold text-white">Bimochan Jena</h3>
+                <p class="text-xs text-slate-400 mt-1">Dev Bhoomi Uttarakhand University, Dehradun</p>
+            </div>
+
+            <!-- Team Member 3: ML Models -->
+            <div class="bg-navy-900/60 border border-white/10 rounded-2xl p-6 text-center hover:border-emerald-500/40 transition-colors">
+                <div class="w-16 h-16 rounded-full bg-emerald-950/80 border border-emerald-700/50 flex items-center justify-center mx-auto mb-4">
+                    <img alt="Machine Learning icon" src="{{ url_for('static', filename='public/Icons/group 1317-200h.png') }}" class="w-8 h-8 object-contain" />
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 inline-block mb-2">
+                    Machine Learning & Deep Learning
+                </span>
+                <h3 class="text-lg font-bold text-white">Uttam Singh</h3>
+                <p class="text-xs text-slate-400 mt-1">Dev Bhoomi Uttarakhand University, Dehradun</p>
+            </div>
+
+        </div>
+    </section>
+
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-    // "What We Do" tab functionality
     document.addEventListener('DOMContentLoaded', function() {
       const tabs = document.querySelectorAll('.feature-tab');
       const contentPanels = document.querySelectorAll('.content-panel');
@@ -158,4 +342,3 @@
     });
 </script>
 {% endblock %}
-

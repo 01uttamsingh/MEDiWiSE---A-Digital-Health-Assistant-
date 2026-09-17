@@ -12,6 +12,11 @@ __pycache__/
 *.pyo
 *.pyd
 
+# Databases & Media
+*.sqlite3
+db.sqlite3
+media/
+
 # Model files (large binaries - optional, add if too large)
 # models/*.pth
 # models/*.pkl

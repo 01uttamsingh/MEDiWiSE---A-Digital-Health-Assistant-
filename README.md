@@ -16,7 +16,7 @@ flowchart TD
 
     subgraph Backend["Django REST Framework Backend Tier"]
         Router["mediwise/urls.py (Master Router)"]
-        
+
         subgraph Apps["Modular Backend Services (apps/)"]
             SymptomApp["apps.symptoms\n(SymptomPredictAPIView)"]
             SkinApp["apps.skin_disease\n(SkinDiseasePredictAPIView)"]
@@ -83,16 +83,16 @@ flowchart TD
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| **Backend Framework** | Python 3.12+, Django 6.x, Django REST Framework (DRF) |
-| **API Documentation** | OpenAPI 3.0, `drf-spectacular` (Swagger UI & Redoc) |
-| **CORS & Security** | `django-cors-headers`, environment secret injection |
-| **ML Model** | Scikit-learn (Random Forest Classifier, MultiLabelBinarizer) |
-| **DL Model** | PyTorch, Torchvision (EfficientNet-B0 Architecture) |
-| **Generative AI** | Google Gemini API (`models/gemini-2.5-flash`) |
-| **Maps & Places** | Google Maps JavaScript API |
-| **Frontend** | HTML5, Tailwind CSS, Jinja2 Template Engine |
+| Layer                 | Technology                                                   |
+| --------------------- | ------------------------------------------------------------ |
+| **Backend Framework** | Python 3.12+, Django 6.x, Django REST Framework (DRF)        |
+| **API Documentation** | OpenAPI 3.0, `drf-spectacular` (Swagger UI & Redoc)          |
+| **CORS & Security**   | `django-cors-headers`, environment secret injection          |
+| **ML Model**          | Scikit-learn (Random Forest Classifier, MultiLabelBinarizer) |
+| **DL Model**          | PyTorch, Torchvision (EfficientNet-B0 Architecture)          |
+| **Generative AI**     | Google Gemini API (`models/gemini-2.5-flash`)                |
+| **Maps & Places**     | Google Maps JavaScript API                                   |
+| **Frontend**          | HTML5, Tailwind CSS, Jinja2 Template Engine                  |
 
 ---
 
@@ -226,6 +226,7 @@ python manage.py runserver
 ```
 
 Open your browser to:
+
 - **Web Application**: [http://localhost:8000/](http://localhost:8000/)
 - **Interactive Swagger UI**: [http://localhost:8000/api/docs/](http://localhost:8000/api/docs/) (or `/api/swagger/`)
 - **Redoc Documentation**: [http://localhost:8000/api/redoc/](http://localhost:8000/api/redoc/)
@@ -239,24 +240,27 @@ Open your browser to:
 
 All endpoints accept requests with and without a trailing slash (e.g. `/api/chat` and `/api/chat/`).
 
-| Endpoint | Method | Input Type | Description |
-|---|---|---|---|
-| `POST /api/predict_symptoms/` | `POST` | `application/json` | Predicts condition from a list of symptoms |
-| `POST /api/predict_skin/` | `POST` | `multipart/form-data` | Classifies skin condition from uploaded image |
-| `POST /api/get_remedies/` | `POST` | `application/json` | Fetches Gemini AI home self-care remedies |
-| `POST /api/chat/` | `POST` | `application/json` | Conversational MedTed health guidance assistant |
-| `GET /api/docs/` | `GET` | _None_ | Interactive Swagger UI sandbox |
-| `GET /api/schema/` | `GET` | _None_ | OpenAPI 3.0 YAML/JSON specification |
+| Endpoint                      | Method | Input Type            | Description                                     |
+| ----------------------------- | ------ | --------------------- | ----------------------------------------------- |
+| `POST /api/predict_symptoms/` | `POST` | `application/json`    | Predicts condition from a list of symptoms      |
+| `POST /api/predict_skin/`     | `POST` | `multipart/form-data` | Classifies skin condition from uploaded image   |
+| `POST /api/get_remedies/`     | `POST` | `application/json`    | Fetches Gemini AI home self-care remedies       |
+| `POST /api/chat/`             | `POST` | `application/json`    | Conversational MedTed health guidance assistant |
+| `GET /api/docs/`              | `GET`  | _None_                | Interactive Swagger UI sandbox                  |
+| `GET /api/schema/`            | `GET`  | _None_                | OpenAPI 3.0 YAML/JSON specification             |
 
 ### Sample API Requests
 
 #### 1. Symptom Prediction
+
 ```bash
 curl -X POST http://localhost:8000/api/predict_symptoms/ \
   -H "Content-Type: application/json" \
   -d '{"symptoms": ["itching", "skin_rash", "nodal_skin_eruptions"]}'
 ```
+
 **Response (200 OK)**:
+
 ```json
 {
   "disease": "Fungal infection",
@@ -271,22 +275,24 @@ curl -X POST http://localhost:8000/api/predict_symptoms/ \
 ```
 
 #### 2. Skin Disease Classification (Multipart)
+
 ```bash
 curl -X POST http://localhost:8000/api/predict_skin/ \
   -F "image=@sample_skin_photo.jpg"
 ```
+
 **Response (200 OK)**:
+
 ```json
 {
   "disease": "Atopic Dermatitis",
   "confidence": "89.75%",
-  "precautions": [
-    "Consult a dermatologist and keep the area clean."
-  ]
+  "precautions": ["Consult a dermatologist and keep the area clean."]
 }
 ```
 
 #### 3. Home Remedies
+
 ```bash
 curl -X POST http://localhost:8000/api/get_remedies/ \
   -H "Content-Type: application/json" \
@@ -294,6 +300,7 @@ curl -X POST http://localhost:8000/api/get_remedies/ \
 ```
 
 #### 4. MedTed Chatbot
+
 ```bash
 curl -X POST http://localhost:8000/api/chat/ \
   -H "Content-Type: application/json" \
@@ -311,6 +318,7 @@ python manage.py test
 ```
 
 Expected output:
+
 ```text
 Found 21 test(s).
 Creating test database for alias 'default'...
@@ -326,15 +334,15 @@ Destroying test database for alias 'default'...
 
 ## Skin Disease Classes (PyTorch EfficientNet-B0)
 
-| Code | Disease Name | Description |
-|---|---|---|
-| **AD** | Atopic Dermatitis | Chronic inflammatory skin condition causing itchy, red swelling |
-| **CD** | Contact Dermatitis | Reaction caused by direct contact with a substance or allergen |
-| **EC** | Eczema | Rough, inflamed patches that can cause itching and bleeding |
-| **SC** | Scabies | Contagious parasitic infestation characterized by intense itching |
-| **SD** | Seborrheic Dermatitis | Scaly patches and persistent dandruff on oily areas |
-| **TC** | Tinea Corporis | Ringworm fungal infection on the body |
-| **OOD** | Out-of-Distribution | Non-dermatological or clear skin picture |
+| Code    | Disease Name          | Description                                                       |
+| ------- | --------------------- | ----------------------------------------------------------------- |
+| **AD**  | Atopic Dermatitis     | Chronic inflammatory skin condition causing itchy, red swelling   |
+| **CD**  | Contact Dermatitis    | Reaction caused by direct contact with a substance or allergen    |
+| **EC**  | Eczema                | Rough, inflamed patches that can cause itching and bleeding       |
+| **SC**  | Scabies               | Contagious parasitic infestation characterized by intense itching |
+| **SD**  | Seborrheic Dermatitis | Scaly patches and persistent dandruff on oily areas               |
+| **TC**  | Tinea Corporis        | Ringworm fungal infection on the body                             |
+| **OOD** | Out-of-Distribution   | Non-dermatological or clear skin picture                          |
 
 ---
 
@@ -344,13 +352,11 @@ Destroying test database for alias 'default'...
 
 ---
 
-## Team & Credits
-
-| Role | Name | Institution |
-|---|---|---|
-| **Front-End Engineering** | Ashish Mishra | Dev Bhoomi Uttarakhand University, Dehradun |
-| **Back-End & Architecture** | Bimochan Jena | Dev Bhoomi Uttarakhand University, Dehradun |
-| **Machine Learning & AI** | Uttam Singh | Dev Bhoomi Uttarakhand University, Dehradun |
+| Role      | Name          | Institution                                 |
+| --------- | ------------- | ------------------------------------------- |
+| Front-End | Ashish Mishra | Dev Bhoomi Uttarakhand University, Dehradun |
+| Back-End  | Bimochan Jena | Dev Bhoomi Uttarakhand University, Dehradun |
+| ML Models | Uttam Singh   | Dev Bhoomi Uttarakhand University, Dehradun |
 
 ---
 

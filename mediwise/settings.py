@@ -56,6 +56,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Allow iframe embedding for same-origin pages (enables floating MedTed chatbot widget)
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 ROOT_URLCONF = 'mediwise.urls'
 
 TEMPLATES = [

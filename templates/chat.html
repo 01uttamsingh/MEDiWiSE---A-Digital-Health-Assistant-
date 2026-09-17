@@ -49,22 +49,34 @@
         .message-wrapper {
             display: flex;
             align-items: flex-end;
-            gap: 10px;
-            max-width: 85%;
+            gap: 8px;
+            max-width: 90%;
             animation: bubbleIn 0.2s ease-out;
+        }
+        @media (min-width: 640px) {
+            .message-wrapper {
+                gap: 10px;
+                max-width: 85%;
+            }
         }
         .user-query-wrapper {
             align-self: flex-end;
             flex-direction: row-reverse;
         }
         .bot-avatar {
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             overflow: hidden;
             flex-shrink: 0;
             background-color: #070D18;
             border: 1.5px solid rgba(6, 182, 212, 0.4);
+        }
+        @media (min-width: 640px) {
+            .bot-avatar {
+                width: 32px;
+                height: 32px;
+            }
         }
         .bot-avatar img {
             width: 100%;
@@ -72,11 +84,19 @@
             object-fit: cover;
         }
         .message {
-            padding: 12px 16px;
-            border-radius: 18px;
-            line-height: 1.5;
-            font-size: 0.875rem;
+            padding: 10px 14px;
+            border-radius: 16px;
+            line-height: 1.45;
+            font-size: 0.8125rem;
             word-wrap: break-word;
+        }
+        @media (min-width: 640px) {
+            .message {
+                padding: 12px 16px;
+                border-radius: 18px;
+                line-height: 1.5;
+                font-size: 0.875rem;
+            }
         }
         .bot-message {
             background-color: #142544;
@@ -113,79 +133,90 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Scrollbar */
-        #chat-messages::-webkit-scrollbar { width: 6px; }
+        /* Scrollbar & Touch Scroll */
+        .touch-scroll {
+            -webkit-overflow-scrolling: touch;
+        }
+        #chat-messages::-webkit-scrollbar { width: 5px; }
         #chat-messages::-webkit-scrollbar-track { background: #0B1528; }
         #chat-messages::-webkit-scrollbar-thumb { background: #1C345C; border-radius: 3px; }
     </style>
 </head>
 
-<body class="bg-navy-900 text-slate-100 flex flex-col h-screen overflow-hidden antialiased">
+<body class="bg-navy-900 text-slate-100 flex flex-col h-screen overflow-hidden antialiased select-none sm:select-auto">
+
+    <!-- Mobile Drawer Drag Handle Indicator -->
+    <div class="w-10 h-1 bg-white/20 rounded-full mx-auto my-1.5 sm:hidden flex-shrink-0"></div>
 
     <!-- Header -->
-    <header class="px-4 py-3.5 bg-navy-950 border-b border-white/10 flex items-center justify-between flex-shrink-0">
-        <div class="flex items-center gap-3">
+    <header class="px-3.5 sm:px-4 py-2.5 sm:py-3.5 bg-navy-950 border-b border-white/10 flex items-center justify-between flex-shrink-0">
+        <div class="flex items-center gap-2.5 sm:gap-3">
             <div class="relative">
-                <div class="w-9 h-9 rounded-full bg-cyan-950 border border-cyan-600/40 flex items-center justify-center">
-                    <img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="MedTed Icon" class="w-6 h-6 object-contain" />
+                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-cyan-950 border border-cyan-600/40 flex items-center justify-center">
+                    <img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="MedTed Icon" class="w-5 h-5 sm:w-6 sm:h-6 object-contain" />
                 </div>
                 <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-navy-950"></span>
             </div>
             <div>
-                <h1 class="text-sm font-bold text-white flex items-center gap-1.5 leading-none">
+                <h1 class="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5 leading-none">
                     MedTed AI
-                    <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-cyan-950/80 text-cyan-400 border border-cyan-800/40">Health Bot</span>
+                    <span class="text-[9px] sm:text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-cyan-950/80 text-cyan-400 border border-cyan-800/40">Health Bot</span>
                 </h1>
-                <span class="text-[11px] text-slate-400">General medical guidance • 24/7</span>
+                <span class="text-[10px] sm:text-[11px] text-slate-400">General medical guidance • 24/7</span>
             </div>
         </div>
 
-        <span class="text-xs font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-800/40 flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            Online
-        </span>
+        <div class="flex items-center gap-1.5 sm:gap-2">
+            <span class="text-[10px] sm:text-xs font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-800/40 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Online
+            </span>
+            <button id="close-chat-btn" type="button" aria-label="Close chat window" class="p-1.5 sm:p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors focus:outline-none">
+                <svg class="w-4 h-4 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
     </header>
 
     <!-- Chat Messages Scroll View -->
-    <main id="chat-messages" class="flex-grow p-4 overflow-y-auto flex flex-col gap-3.5">
+    <main id="chat-messages" class="flex-grow p-3 sm:p-4 overflow-y-auto touch-scroll flex flex-col gap-3 sm:gap-3.5">
         <div class="message-wrapper">
             <div class="bot-avatar">
                 <img src="{{ url_for('static', filename='img/chatbot.png') }}" alt="Bot Avatar" />
             </div>
             <div class="message bot-message">
                 <p>Hello! I'm <strong>MedTed</strong>, your digital health assistant. Ask me anything about symptoms, basic wellness, nutrition, or first-aid precautions.</p>
-                <p class="text-[11px] text-slate-400 mt-1.5 border-t border-white/5 pt-1"><em>Note: I provide health information, not clinical prescriptions.</em></p>
+                <p class="text-[10px] sm:text-[11px] text-slate-400 mt-1.5 border-t border-white/5 pt-1"><em>Note: I provide health information, not clinical prescriptions.</em></p>
             </div>
         </div>
     </main>
 
     <!-- Quick Prompts Dock -->
-    <div class="px-4 py-2 bg-navy-950/50 border-t border-white/5 flex gap-1.5 overflow-x-auto no-scrollbar text-xs">
-        <button type="button" onclick="sendQuickPrompt('How do I manage a tension headache?')" class="flex-shrink-0 px-2.5 py-1 rounded-full bg-navy-850 hover:bg-cyan-900/40 border border-white/10 text-slate-300 hover:text-cyan-300 transition-colors">
+    <div class="px-3 sm:px-4 py-2 bg-navy-950/60 border-t border-white/5 flex gap-1.5 overflow-x-auto no-scrollbar touch-scroll text-xs">
+        <button type="button" onclick="sendQuickPrompt('How do I manage a tension headache?')" class="flex-shrink-0 px-2.5 py-1 rounded-full bg-navy-850 hover:bg-cyan-900/40 border border-white/10 text-slate-300 hover:text-cyan-300 transition-colors text-[11px] sm:text-xs">
             Tension Headache
         </button>
-        <button type="button" onclick="sendQuickPrompt('What are early signs of dehydration?')" class="flex-shrink-0 px-2.5 py-1 rounded-full bg-navy-850 hover:bg-cyan-900/40 border border-white/10 text-slate-300 hover:text-cyan-300 transition-colors">
+        <button type="button" onclick="sendQuickPrompt('What are early signs of dehydration?')" class="flex-shrink-0 px-2.5 py-1 rounded-full bg-navy-850 hover:bg-cyan-900/40 border border-white/10 text-slate-300 hover:text-cyan-300 transition-colors text-[11px] sm:text-xs">
             Dehydration signs
         </button>
-        <button type="button" onclick="sendQuickPrompt('Tips for improving sleep quality')" class="flex-shrink-0 px-2.5 py-1 rounded-full bg-navy-850 hover:bg-cyan-900/40 border border-white/10 text-slate-300 hover:text-cyan-300 transition-colors">
+        <button type="button" onclick="sendQuickPrompt('Tips for improving sleep quality')" class="flex-shrink-0 px-2.5 py-1 rounded-full bg-navy-850 hover:bg-cyan-900/40 border border-white/10 text-slate-300 hover:text-cyan-300 transition-colors text-[11px] sm:text-xs">
             Sleep tips
         </button>
     </div>
 
     <!-- Input Bar -->
-    <form id="chat-form" class="p-3.5 bg-navy-950 border-t border-white/10 flex items-center gap-2 flex-shrink-0">
+    <form id="chat-form" class="p-2.5 sm:p-3.5 bg-navy-950 border-t border-white/10 flex items-center gap-2 flex-shrink-0">
         <input 
             type="text" 
             id="user-input" 
             placeholder="Type health question..." 
             autocomplete="off" 
             required 
-            class="flex-1 bg-navy-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+            class="flex-1 bg-navy-900 border border-white/10 rounded-xl px-3.5 sm:px-4 py-2.5 text-base sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
         />
         <button 
             type="submit" 
             aria-label="Send message" 
-            class="p-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white shadow-md shadow-cyan-900/40 transition-transform active:scale-95 flex items-center justify-center flex-shrink-0"
+            class="p-2.5 sm:p-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white shadow-md shadow-cyan-900/40 transition-transform active:scale-95 flex items-center justify-center flex-shrink-0"
         >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
         </button>
@@ -272,6 +303,13 @@
             chatMessages.appendChild(messageWrapper);
             chatMessages.scrollTop = chatMessages.scrollHeight;
             return messageWrapper;
+        }
+
+        const closeChatBtn = document.getElementById('close-chat-btn');
+        if (closeChatBtn) {
+            closeChatBtn.addEventListener('click', () => {
+                window.parent.postMessage('mediwise-close-chat', '*');
+            });
         }
     </script>
 </body>

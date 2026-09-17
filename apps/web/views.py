@@ -2,6 +2,7 @@ import os
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.conf import settings
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -9,6 +10,7 @@ def favicon_view(request):
     """Return 204 No Content for /favicon.ico."""
     return HttpResponse(status=204)
 
+@xframe_options_sameorigin
 def page_view(request, page_name="index.html"):
     """
     Renders existing Jinja2/Django templates with necessary context

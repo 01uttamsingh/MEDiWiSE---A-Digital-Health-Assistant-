@@ -20,28 +20,28 @@
     </div>
 
     <!-- Main Diagnostic Grid: Form on Left, Output on Right -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         
         <!-- Left: Symptom Input Console -->
-        <div class="lg:col-span-6 bg-navy-900/90 border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+        <div class="lg:col-span-6 bg-navy-900/90 border border-white/10 rounded-2xl p-5 sm:p-8 shadow-2xl backdrop-blur-md">
             
-            <div class="flex items-center justify-between pb-6 border-b border-white/10 mb-6">
+            <div class="flex items-center justify-between pb-5 sm:pb-6 border-b border-white/10 mb-5 sm:mb-6">
                 <div>
-                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                         <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
                         Symptom Entry
                     </h2>
-                    <p class="text-xs text-slate-400 mt-0.5">Add symptoms you are currently experiencing</p>
+                    <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Add symptoms you are currently experiencing</p>
                 </div>
-                <span class="text-xs font-mono text-cyan-400 bg-cyan-950/60 px-2.5 py-1 rounded-md border border-cyan-800/40">
+                <span class="text-[10px] sm:text-xs font-mono text-cyan-400 bg-cyan-950/60 px-2 sm:px-2.5 py-1 rounded-md border border-cyan-800/40">
                     RF v1.7.2
                 </span>
             </div>
 
             <!-- Quick Add Pill Suggestions -->
-            <div class="mb-6">
+            <div class="mb-5 sm:mb-6">
                 <span class="text-xs font-medium text-slate-400 block mb-2">Common Symptoms (Click to Add):</span>
-                <div class="flex flex-wrap gap-2">
+                <div class="flex flex-wrap gap-1.5 sm:gap-2">
                     <button type="button" onclick="addSuggestedSymptom('itching')" class="px-2.5 py-1 text-xs rounded-lg bg-navy-800 hover:bg-cyan-900/40 border border-white/5 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-200 transition-colors">+ Itching</button>
                     <button type="button" onclick="addSuggestedSymptom('skin_rash')" class="px-2.5 py-1 text-xs rounded-lg bg-navy-800 hover:bg-cyan-900/40 border border-white/5 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-200 transition-colors">+ Skin Rash</button>
                     <button type="button" onclick="addSuggestedSymptom('fever')" class="px-2.5 py-1 text-xs rounded-lg bg-navy-800 hover:bg-cyan-900/40 border border-white/5 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-200 transition-colors">+ Fever</button>
@@ -57,32 +57,32 @@
                 <div id="symptomInputs" class="space-y-3">
                     <div class="symptom-group flex items-center gap-2">
                         <div class="relative flex-1">
-                            <input type="text" name="symptom" placeholder="e.g. headache, fever, fatigue" class="w-full bg-navy-950 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all">
+                            <input type="text" name="symptom" placeholder="e.g. headache, fever, fatigue" class="w-full bg-navy-950 border border-white/10 rounded-xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-base sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all">
                         </div>
-                        <button type="button" class="remove-btn p-3 rounded-xl bg-navy-800 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 border border-white/5 transition-colors" onclick="removeSymptom(this)" title="Remove symptom">
+                        <button type="button" class="remove-btn p-2.5 sm:p-3 rounded-xl bg-navy-800 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 border border-white/5 transition-colors" onclick="removeSymptom(this)" title="Remove symptom">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                         </button>
                     </div>
                 </div>
 
                 <!-- Action Controls -->
-                <div class="pt-4 flex flex-col sm:flex-row items-center gap-3">
-                    <button type="button" id="addSymptomBtn" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-navy-800 hover:bg-navy-700 text-slate-200 text-sm font-semibold border border-white/10 flex items-center justify-center gap-2 transition-all hover:border-cyan-500/40">
+                <div class="pt-3 sm:pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <button type="button" id="addSymptomBtn" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-navy-800 hover:bg-navy-700 text-slate-200 text-xs sm:text-sm font-semibold border border-white/10 flex items-center justify-center gap-2 transition-all hover:border-cyan-500/40 text-center">
                         <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                         Add Another Symptom
                     </button>
-                    <button type="submit" class="w-full sm:flex-1 py-3 px-6 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white text-sm font-bold shadow-lg shadow-cyan-900/40 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+                    <button type="submit" class="w-full sm:flex-1 py-3 px-6 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white text-xs sm:text-sm font-bold shadow-lg shadow-cyan-900/40 transition-all hover:scale-[1.02] flex items-center justify-center gap-2 text-center">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                         Run Prediction
                     </button>
                 </div>
             </form>
 
-            <div class="mt-6 pt-6 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+            <div class="mt-5 sm:mt-6 pt-5 sm:pt-6 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-slate-400">
                 <span>Model: Random Forest Multilabel</span>
                 <span class="flex items-center gap-1 text-emerald-400">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                    131 Recognized Clinical Features
+                    131 Recognized Features
                 </span>
             </div>
         </div>
@@ -91,12 +91,12 @@
         <div class="lg:col-span-6 space-y-6">
             
             <!-- Result Container (Initially hidden or shows empty state) -->
-            <div id="predictionResult" class="bg-navy-900/90 border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md transition-all duration-300" style="display:none;">
+            <div id="predictionResult" class="bg-navy-900/90 border border-white/10 rounded-2xl p-5 sm:p-8 shadow-2xl backdrop-blur-md transition-all duration-300" style="display:none;">
                 
-                <div class="flex items-center justify-between pb-6 border-b border-white/10">
+                <div class="flex items-center justify-between pb-5 sm:pb-6 border-b border-white/10">
                     <div class="flex items-center gap-2.5">
-                        <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
-                        <h3 class="text-xl font-bold text-white">Diagnostic Output</h3>
+                        <span class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-400 animate-ping"></span>
+                        <h3 class="text-lg sm:text-xl font-bold text-white">Diagnostic Output</h3>
                     </div>
                     <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
                         Analysis Complete
@@ -104,24 +104,24 @@
                 </div>
 
                 <!-- Predicted Disease Banner -->
-                <div class="my-6 p-5 rounded-xl bg-gradient-to-br from-navy-850 to-navy-900 border border-cyan-500/30">
+                <div class="my-5 sm:my-6 p-4 sm:p-5 rounded-xl bg-gradient-to-br from-navy-850 to-navy-900 border border-cyan-500/30">
                     <span class="text-xs uppercase tracking-wider font-semibold text-cyan-400 block mb-1">Identified Potential Condition</span>
-                    <div id="diseaseOutput" class="text-2xl sm:text-3xl font-extrabold text-white">
+                    <div id="diseaseOutput" class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white break-words">
                         ---
                     </div>
-                    <div class="mt-3 flex items-center justify-between text-sm">
+                    <div class="mt-3 flex items-center justify-between text-xs sm:text-sm">
                         <span class="text-slate-400">Model Confidence:</span>
-                        <span id="accuracyOutput" class="font-mono text-emerald-400 font-bold text-base">---</span>
+                        <span id="accuracyOutput" class="font-mono text-emerald-400 font-bold text-sm sm:text-base">---</span>
                     </div>
                 </div>
 
                 <!-- Precautions List -->
-                <div class="bg-navy-950/60 rounded-xl p-5 border border-white/5">
-                    <div class="flex items-center gap-2 text-emerald-400 font-semibold text-sm mb-3">
+                <div class="bg-navy-950/60 rounded-xl p-4 sm:p-5 border border-white/5">
+                    <div class="flex items-center gap-2 text-emerald-400 font-semibold text-xs sm:text-sm mb-3">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                         Clinical Precautions & Guidance
                     </div>
-                    <ul id="precautionList" class="space-y-2 text-sm text-slate-300">
+                    <ul id="precautionList" class="space-y-2 text-xs sm:text-sm text-slate-300">
                         <li class="flex items-start gap-2">
                             <span class="text-emerald-400 mt-1">•</span>
                             <span>Awaiting symptoms input...</span>
@@ -129,14 +129,14 @@
                     </ul>
                 </div>
 
-                <div class="mt-6 pt-4 border-t border-white/5 text-xs text-amber-300/80 flex items-start gap-2">
+                <div class="mt-5 sm:mt-6 pt-4 border-t border-white/5 text-[11px] sm:text-xs text-amber-300/80 flex items-start gap-2">
                     <svg class="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                     <span>This output is computed by an AI statistical model for informational reference only. Always confirm with a licensed medical practitioner.</span>
                 </div>
             </div>
 
             <!-- Empty / Standby Placeholder Card (shows before submission) -->
-            <div id="standbyCard" class="bg-navy-900/60 border border-dashed border-white/10 rounded-2xl p-8 text-center">
+            <div id="standbyCard" class="bg-navy-900/60 border border-dashed border-white/10 rounded-2xl p-6 sm:p-8 text-center">
                 <div class="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 mx-auto flex items-center justify-center mb-4">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>

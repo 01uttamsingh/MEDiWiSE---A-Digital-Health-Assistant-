@@ -20,64 +20,64 @@
     </div>
 
     <!-- Detailed Service Cards List -->
-    <div class="space-y-8" id="services">
+    <div class="space-y-6 sm:space-y-8" id="services">
         
         <!-- Service 1: Symptom Prediction -->
-        <div class="bg-navy-900/80 border border-white/10 rounded-3xl p-8 sm:p-10 shadow-2xl backdrop-blur-md grid grid-cols-1 lg:grid-cols-12 gap-8 items-center hover:border-cyan-500/30 transition-all">
-            <div class="lg:col-span-7 space-y-4">
+        <div class="bg-navy-900/80 border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl backdrop-blur-md grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center hover:border-cyan-500/30 transition-all">
+            <div class="lg:col-span-7 space-y-3 sm:space-y-4">
                 <div class="flex items-center gap-3">
-                    <span class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center font-mono font-bold text-sm">
+                    <span class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center font-mono font-bold text-xs sm:text-sm">
                         01
                     </span>
-                    <span class="text-xs uppercase font-mono text-cyan-400 tracking-wider">Multi-Class Classifier</span>
+                    <span class="text-[11px] sm:text-xs uppercase font-mono text-cyan-400 tracking-wider">Multi-Class Classifier</span>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-bold text-white">Symptom-Based Disease Prediction</h2>
-                <p class="text-slate-300 text-sm leading-relaxed">
+                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white">Symptom-Based Disease Prediction</h2>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
                     Powered by a trained Random Forest algorithm on clinical medical datasets. The system evaluates patient-reported symptoms against 131 distinct medical indicators to deliver a high-confidence probabilistic condition match accompanied by immediate non-prescriptive precautions.
                 </p>
-                <div class="flex flex-wrap gap-2 pt-1 text-xs">
+                <div class="flex flex-wrap gap-1.5 sm:gap-2 pt-1 text-[11px] sm:text-xs">
                     <span class="px-2.5 py-1 rounded-md bg-navy-950 text-slate-300 border border-white/5">MultiLabel Binarizer</span>
                     <span class="px-2.5 py-1 rounded-md bg-navy-950 text-slate-300 border border-white/5">95%+ Confidence Threshold</span>
                     <span class="px-2.5 py-1 rounded-md bg-navy-950 text-slate-300 border border-white/5">Instant Precautions</span>
                 </div>
-                <div class="pt-4">
-                    <a href="{{ url_for('render_page', page_name='ml_predict.html') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white font-bold text-sm shadow-md transition-all hover:scale-[1.02]">
+                <div class="pt-3 sm:pt-4">
+                    <a href="{{ url_for('render_page', page_name='ml_predict.html') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white font-bold text-xs sm:text-sm shadow-md transition-all hover:scale-[1.02] text-center">
                         Enter Symptoms Now →
                     </a>
                 </div>
             </div>
             <div class="lg:col-span-5">
-                <div class="bg-navy-950 p-6 rounded-2xl border border-white/10 flex items-center justify-center">
-                    <img alt="Symptom Prediction Illustration" src="{{ url_for('static', filename='img/predict.png') }}" class="max-h-60 w-auto object-contain" />
+                <div class="bg-navy-950 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-white/10 flex items-center justify-center">
+                    <img alt="Symptom Prediction Illustration" src="{{ url_for('static', filename='img/predict.png') }}" class="max-h-48 sm:max-h-60 w-auto object-contain" />
                 </div>
             </div>
         </div>
 
         <!-- Service 2: Skin Disease Prediction -->
-        <div class="bg-navy-900/80 border border-white/10 rounded-3xl p-8 sm:p-10 shadow-2xl backdrop-blur-md grid grid-cols-1 lg:grid-cols-12 gap-8 items-center hover:border-teal-500/30 transition-all">
+        <div class="bg-navy-900/80 border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl backdrop-blur-md grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center hover:border-teal-500/30 transition-all">
             <div class="lg:col-span-5 order-2 lg:order-1">
-                <div class="bg-navy-950 p-6 rounded-2xl border border-white/10 flex items-center justify-center">
-                    <img alt="Skin Disease Illustration" src="{{ url_for('static', filename='img/skin.png') }}" class="max-h-60 w-auto object-contain" />
+                <div class="bg-navy-950 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-white/10 flex items-center justify-center">
+                    <img alt="Skin Disease Illustration" src="{{ url_for('static', filename='img/skin.png') }}" class="max-h-48 sm:max-h-60 w-auto object-contain" />
                 </div>
             </div>
-            <div class="lg:col-span-7 space-y-4 order-1 lg:order-2">
+            <div class="lg:col-span-7 space-y-3 sm:space-y-4 order-1 lg:order-2">
                 <div class="flex items-center gap-3">
-                    <span class="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center font-mono font-bold text-sm">
+                    <span class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center font-mono font-bold text-xs sm:text-sm">
                         02
                     </span>
-                    <span class="text-xs uppercase font-mono text-teal-400 tracking-wider">Computer Vision Deep Learning</span>
+                    <span class="text-[11px] sm:text-xs uppercase font-mono text-teal-400 tracking-wider">Computer Vision Deep Learning</span>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-bold text-white">Visual Skin Condition Detection</h2>
-                <p class="text-slate-300 text-sm leading-relaxed">
+                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white">Visual Skin Condition Detection</h2>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
                     Leveraging transfer learning with PyTorch EfficientNet-B0 architecture, this tool evaluates uploaded skin photographs. It normalizes lighting and chromatic values to classify among 7 common dermatological classes (including Eczema, Dermatitis, Scabies, and Tinea).
                 </p>
-                <div class="flex flex-wrap gap-2 pt-1 text-xs">
+                <div class="flex flex-wrap gap-1.5 sm:gap-2 pt-1 text-[11px] sm:text-xs">
                     <span class="px-2.5 py-1 rounded-md bg-navy-950 text-slate-300 border border-white/5">PyTorch Neural Net</span>
                     <span class="px-2.5 py-1 rounded-md bg-navy-950 text-slate-300 border border-white/5">7 Dermatological Classes</span>
                     <span class="px-2.5 py-1 rounded-md bg-navy-950 text-slate-300 border border-white/5">Real-Time Image Transforms</span>
                 </div>
-                <div class="pt-4">
-                    <a href="{{ url_for('render_page', page_name='dl_predict.html') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-cyan-500 hover:from-teal-500 hover:to-cyan-400 text-white font-bold text-sm shadow-md transition-all hover:scale-[1.02]">
+                <div class="pt-3 sm:pt-4">
+                    <a href="{{ url_for('render_page', page_name='dl_predict.html') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-cyan-500 hover:from-teal-500 hover:to-cyan-400 text-white font-bold text-xs sm:text-sm shadow-md transition-all hover:scale-[1.02] text-center">
                         Upload Skin Image →
                     </a>
                 </div>
@@ -85,32 +85,32 @@
         </div>
 
         <!-- Service 3: Remedies-At Home -->
-        <div class="bg-navy-900/80 border border-white/10 rounded-3xl p-8 sm:p-10 shadow-2xl backdrop-blur-md grid grid-cols-1 lg:grid-cols-12 gap-8 items-center hover:border-emerald-500/30 transition-all">
-            <div class="lg:col-span-7 space-y-4">
+        <div class="bg-navy-900/80 border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl backdrop-blur-md grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center hover:border-emerald-500/30 transition-all">
+            <div class="lg:col-span-7 space-y-3 sm:space-y-4">
                 <div class="flex items-center gap-3">
-                    <span class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-sm">
+                    <span class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-xs sm:text-sm">
                         03
                     </span>
-                    <span class="text-xs uppercase font-mono text-emerald-400 tracking-wider">Generative Health AI</span>
+                    <span class="text-[11px] sm:text-xs uppercase font-mono text-emerald-400 tracking-wider">Generative Health AI</span>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-bold text-white">Natural Home Remedies & Lifestyle Advice</h2>
-                <p class="text-slate-300 text-sm leading-relaxed">
+                <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white">Natural Home Remedies & Lifestyle Advice</h2>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
                     Designed to provide immediate comfort for mild, non-critical symptoms. Simply name an ailment to receive curated, safe home remedies, herbal infusions, and recovery protocols generated via Google Gemini.
                 </p>
-                <div class="flex flex-wrap gap-2 pt-1 text-xs">
+                <div class="flex flex-wrap gap-1.5 sm:gap-2 pt-1 text-[11px] sm:text-xs">
                     <span class="px-2.5 py-1 rounded-md bg-navy-950 text-slate-300 border border-white/5">Gemini 2.5 Flash</span>
                     <span class="px-2.5 py-1 rounded-md bg-navy-950 text-slate-300 border border-white/5">Evidence-Informed Comfort</span>
                     <span class="px-2.5 py-1 rounded-md bg-navy-950 text-slate-300 border border-white/5">Non-Clinical Self-Care</span>
                 </div>
-                <div class="pt-4">
-                    <a href="{{ url_for('render_page', page_name='remedies.html') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-sm shadow-md transition-all hover:scale-[1.02]">
+                <div class="pt-3 sm:pt-4">
+                    <a href="{{ url_for('render_page', page_name='remedies.html') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-xs sm:text-sm shadow-md transition-all hover:scale-[1.02] text-center">
                         Explore Natural Remedies →
                     </a>
                 </div>
             </div>
             <div class="lg:col-span-5">
-                <div class="bg-navy-950 p-6 rounded-2xl border border-white/10 flex items-center justify-center">
-                    <img alt="Home Remedies Illustration" src="{{ url_for('static', filename='img/remedies.png') }}" class="max-h-60 w-auto object-contain" />
+                <div class="bg-navy-950 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-white/10 flex items-center justify-center">
+                    <img alt="Home Remedies Illustration" src="{{ url_for('static', filename='img/remedies.png') }}" class="max-h-48 sm:max-h-60 w-auto object-contain" />
                 </div>
             </div>
         </div>

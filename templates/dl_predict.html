@@ -20,41 +20,41 @@
     </div>
 
     <!-- Main Workspace: Image Upload Studio + Diagnostic Output Console -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start mb-12 sm:mb-16">
         
         <!-- Left: Upload Zone -->
-        <div class="lg:col-span-5 bg-navy-900/90 border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+        <div class="lg:col-span-5 bg-navy-900/90 border border-white/10 rounded-2xl p-5 sm:p-8 shadow-2xl backdrop-blur-md">
             
-            <div class="flex items-center justify-between pb-5 border-b border-white/10 mb-6">
+            <div class="flex items-center justify-between pb-5 border-b border-white/10 mb-5 sm:mb-6">
                 <div>
-                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                         <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         Upload Skin Image
                     </h2>
-                    <p class="text-xs text-slate-400 mt-0.5">JPEG or PNG format, well-lit close up</p>
+                    <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">JPEG or PNG format, well-lit close up</p>
                 </div>
-                <span class="text-xs font-mono text-cyan-400 bg-cyan-950/60 px-2.5 py-1 rounded-md border border-cyan-800/40">
+                <span class="text-[10px] sm:text-xs font-mono text-cyan-400 bg-cyan-950/60 px-2 sm:px-2.5 py-1 rounded-md border border-cyan-800/40">
                     EfficientNet-B0
                 </span>
             </div>
 
             <!-- Drag & Drop / Preview Box -->
             <div class="image-uploader-container">
-                <label for="image-upload-input" class="image-preview-box w-full aspect-square rounded-2xl border-2 border-dashed border-white/20 hover:border-cyan-400 bg-navy-950/70 hover:bg-navy-950 flex flex-col items-center justify-center cursor-pointer transition-all duration-200 overflow-hidden relative group">
+                <label for="image-upload-input" class="image-preview-box w-full aspect-[4/3] sm:aspect-square min-h-[220px] rounded-xl sm:rounded-2xl border-2 border-dashed border-white/20 hover:border-cyan-400 bg-navy-950/70 hover:bg-navy-950 flex flex-col items-center justify-center cursor-pointer transition-all duration-200 overflow-hidden relative group">
                     
                     <!-- Hidden File Input -->
                     <input type="file" id="image-upload-input" accept="image/*" class="hidden" />
 
                     <!-- Image Preview Element -->
-                    <img id="image-preview" alt="Selected skin preview" class="image-preview w-full h-full object-cover hidden rounded-2xl" />
+                    <img id="image-preview" alt="Selected skin preview" class="image-preview w-full h-full object-cover hidden rounded-xl sm:rounded-2xl" />
 
                     <!-- Standby Placeholder -->
-                    <div class="preview-placeholder text-center p-6 transition-transform group-hover:scale-105">
-                        <div class="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 mx-auto flex items-center justify-center mb-3">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                    <div class="preview-placeholder text-center p-4 sm:p-6 transition-transform group-hover:scale-105">
+                        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 mx-auto flex items-center justify-center mb-2.5 sm:mb-3">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
                         </div>
-                        <span class="text-sm font-semibold text-white block mb-1">Click or Drop Image Here</span>
-                        <span class="text-xs text-slate-400 block">Supported formats: JPG, JPEG, PNG</span>
+                        <span class="text-xs sm:text-sm font-semibold text-white block mb-1">Click or Drop Image Here</span>
+                        <span class="text-[10px] sm:text-xs text-slate-400 block">Supported formats: JPG, JPEG, PNG</span>
                     </div>
 
                     <!-- Change photo hover badge (visible once preview is active) -->
@@ -64,8 +64,8 @@
                 </label>
 
                 <!-- Trigger Button -->
-                <div class="w-full mt-4 flex items-center gap-3">
-                    <label for="image-upload-input" class="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white text-sm font-bold shadow-lg shadow-cyan-900/40 text-center cursor-pointer transition-all hover:scale-[1.01] flex items-center justify-center gap-2">
+                <div class="w-full mt-3 sm:mt-4 flex items-center gap-3">
+                    <label for="image-upload-input" class="w-full py-3 px-4 sm:px-6 rounded-xl bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white text-xs sm:text-sm font-bold shadow-lg shadow-cyan-900/40 text-center cursor-pointer transition-all hover:scale-[1.01] flex items-center justify-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
                         Select Image to Classify
                     </label>
@@ -73,7 +73,7 @@
             </div>
 
             <!-- Quality Tips -->
-            <div class="mt-6 pt-5 border-t border-white/5 space-y-2 text-xs text-slate-400">
+            <div class="mt-5 sm:mt-6 pt-5 border-t border-white/5 space-y-1.5 sm:space-y-2 text-xs text-slate-400">
                 <span class="font-semibold text-slate-300 block">Tips for Best Analysis:</span>
                 <p>• Ensure strong, natural lighting with minimal shadow or glare.</p>
                 <p>• Focus closely on the lesion or affected surface.</p>
@@ -81,49 +81,49 @@
         </div>
 
         <!-- Right: Diagnostic Tabbed Results Console -->
-        <div class="lg:col-span-7 bg-navy-900/90 border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl backdrop-blur-md results-container">
+        <div class="lg:col-span-7 bg-navy-900/90 border border-white/10 rounded-2xl p-5 sm:p-8 shadow-2xl backdrop-blur-md results-container">
             
             <!-- Tab Navigation -->
-            <div class="flex items-center gap-4 border-b border-white/10 pb-4 mb-6 results-tabs">
-                <button type="button" class="tab-link active text-sm font-bold pb-2 relative text-white border-b-2 border-cyan-400 transition-colors" data-target="prediction-content">
+            <div class="flex items-center gap-3 sm:gap-4 border-b border-white/10 pb-3 sm:pb-4 mb-5 sm:mb-6 results-tabs overflow-x-auto no-scrollbar">
+                <button type="button" class="tab-link active text-xs sm:text-sm font-bold pb-2 relative text-white border-b-2 border-cyan-400 transition-colors whitespace-nowrap" data-target="prediction-content">
                     Condition Analysis
                 </button>
-                <button type="button" class="tab-link text-sm font-medium pb-2 relative text-slate-400 hover:text-white border-b-2 border-transparent transition-colors" data-target="precaution-content">
+                <button type="button" class="tab-link text-xs sm:text-sm font-medium pb-2 relative text-slate-400 hover:text-white border-b-2 border-transparent transition-colors whitespace-nowrap" data-target="precaution-content">
                     Guidance & Precautions
                 </button>
             </div>
 
             <!-- Tab 1: Prediction Analysis -->
-            <div id="prediction-content" class="tab-panel active space-y-6">
+            <div id="prediction-content" class="tab-panel active space-y-5 sm:space-y-6">
                 
                 <!-- Initial Placeholder -->
-                <div class="placeholder-text py-12 text-center text-slate-400">
-                    <svg class="w-12 h-12 text-slate-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    <p class="text-sm font-medium text-slate-300">No Image Uploaded Yet</p>
-                    <p class="text-xs text-slate-500 mt-1">Upload an image on the left to initiate model inference.</p>
+                <div class="placeholder-text py-10 sm:py-12 text-center text-slate-400">
+                    <svg class="w-10 h-10 sm:w-12 sm:h-12 text-slate-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <p class="text-xs sm:text-sm font-medium text-slate-300">No Image Uploaded Yet</p>
+                    <p class="text-[11px] sm:text-xs text-slate-500 mt-1">Upload an image on the left to initiate model inference.</p>
                 </div>
 
                 <!-- Result Card (shown upon analysis) -->
-                <div class="prediction-result hidden space-y-6">
-                    <div class="p-6 rounded-xl bg-gradient-to-br from-navy-850 to-navy-900 border border-cyan-500/30">
+                <div class="prediction-result hidden space-y-5 sm:space-y-6">
+                    <div class="p-5 sm:p-6 rounded-xl bg-gradient-to-br from-navy-850 to-navy-900 border border-cyan-500/30">
                         <div class="flex items-center justify-between mb-2">
                             <span class="text-xs uppercase tracking-wider font-semibold text-cyan-400">Detected Condition</span>
-                            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                            <span class="text-[10px] sm:text-xs font-semibold px-2 sm:px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
                                 Neural Net Evaluation
                             </span>
                         </div>
-                        <h3 class="text-2xl sm:text-3xl font-extrabold text-white">
+                        <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white break-words">
                             <span id="disease-name">Analyzing...</span>
                         </h3>
                         
                         <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
-                            <span class="text-sm text-slate-400">Classification Confidence:</span>
-                            <span id="confidence-score" class="font-mono text-xl font-bold text-emerald-400">...</span>
+                            <span class="text-xs sm:text-sm text-slate-400">Classification Confidence:</span>
+                            <span id="confidence-score" class="font-mono text-lg sm:text-xl font-bold text-emerald-400">...</span>
                         </div>
                     </div>
 
                     <!-- Visual Guide Banner -->
-                    <div class="p-4 rounded-xl bg-navy-950/60 border border-white/5 text-xs text-slate-300 space-y-1">
+                    <div class="p-3.5 sm:p-4 rounded-xl bg-navy-950/60 border border-white/5 text-xs text-slate-300 space-y-1">
                         <span class="font-semibold text-white block">Next Steps:</span>
                         <p>Switch to the <strong>Guidance & Precautions</strong> tab above to view recommended care protocols and specialized management guidance.</p>
                     </div>
@@ -133,8 +133,8 @@
 
             <!-- Tab 2: Precautions & Guidance -->
             <div id="precaution-content" class="tab-panel hidden space-y-4">
-                <div class="placeholder-text py-12 text-center text-slate-400">
-                    <p class="text-sm">Precautions will display automatically once an image is analyzed.</p>
+                <div class="placeholder-text py-10 sm:py-12 text-center text-slate-400">
+                    <p class="text-xs sm:text-sm">Precautions will display automatically once an image is analyzed.</p>
                 </div>
                 
                 <div class="bg-navy-950/60 rounded-xl p-5 border border-white/5">
